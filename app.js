@@ -10,6 +10,7 @@ const SERACH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${MY_API_K
 const topRatedMovies_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${MY_API_KEY}&language=en-US&page=1`;
 const topRatedTV_URL = `https://api.themoviedb.org/3/tv/top_rated?api_key=${MY_API_KEY}&language=en-US&page=1`;
 const posterPath = "https://image.tmdb.org/t/p/w1280";
+const genres_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MY_API_KEY}&language=en-US`;
 
 const form = document.querySelector(".form");
 const search = document.querySelector(".search");
@@ -19,6 +20,47 @@ const upcomingMoviesContainer = document.querySelector(".upcoming-movies");
 const popularTVContainer = document.querySelector(".popular-tv");
 const standardMovies = document.querySelector(".standard-movies");
 const searchedMovies = document.querySelector(".searched");
+
+const genresListMovies = [
+  { id: 28, name: "Action" },
+  { id: 12, name: "Adventure" },
+  { id: 16, name: "Animation" },
+  { id: 35, name: "Comedy" },
+  { id: 80, name: "Crime" },
+  { id: 99, name: "Documentary" },
+  { id: 18, name: "Drama" },
+  { id: 10751, name: "Family" },
+  { id: 14, name: "Fantasy" },
+  { id: 36, name: "History" },
+  { id: 27, name: "Horror" },
+  { id: 10402, name: "Music" },
+  { id: 9648, name: "Mystery" },
+  { id: 10749, name: "Romance" },
+  { id: 878, name: "Sci-fi" },
+  { id: 10770, name: "TV Movie" },
+  { id: 53, name: "Thriller" },
+  { id: 10752, name: "War" },
+  { id: 37, name: "Western" },
+];
+
+const genresListTV = [
+  { id: 10759, name: "Adventure" },
+  { id: 16, name: "Animation" },
+  { id: 35, name: "Comedy" },
+  { id: 80, name: "Crime" },
+  { id: 99, name: "Documentary" },
+  { id: 18, name: "Drama" },
+  { id: 10751, name: "Family" },
+  { id: 10762, name: "Kids" },
+  { id: 9648, name: "Mystery" },
+  { id: 10763, name: "News" },
+  { id: 10764, name: "Reality" },
+  { id: 10765, name: "Fantasy" },
+  { id: 10766, name: "Soap" },
+  { id: 10767, name: "Talk" },
+  { id: 10768, name: "War & Politics" },
+  { id: 37, name: "Western" },
+];
 
 //Popular Movies
 
@@ -36,8 +78,11 @@ async function getPopularMovies() {
   popularMoviesContainer.innerHTML = "";
 
   results.forEach((movie) => {
-    const { title, poster_path, release_date } = movie;
+    const { title, poster_path, release_date, genre_ids } = movie;
     const movieRating = movie.vote_average.toFixed(1);
+
+    const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
+    const gen1 = genresListMovies.find((gen1) => gen1.id === genre_ids[1]);
 
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
@@ -51,8 +96,9 @@ async function getPopularMovies() {
       </div>
     </div>
     <p class="release">
-        Realease date:
-        <span>${release_date}</span>
+        <span>${gen.name}</span>
+        <span>${gen1.name}</span>
+        
     </p>`;
 
     popularMoviesContainer.appendChild(movieEl);
@@ -69,8 +115,11 @@ async function getPopularTV() {
   popularTVContainer.innerHTML = "";
 
   results.forEach((movie) => {
-    const { name, poster_path, first_air_date } = movie;
+    const { name, poster_path, first_air_date, genre_ids } = movie;
     const movieRating = movie.vote_average.toFixed(1);
+
+    const gen = genresListTV.find((gen) => gen.id === genre_ids[0]);
+    const gen1 = genresListTV.find((gen1) => gen1.id === genre_ids[1]);
 
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
@@ -84,8 +133,9 @@ async function getPopularTV() {
       </div>
     </div>
     <p class="release">
-        First air date:
-        <span>${first_air_date}</span>
+        <span>${gen.name}</span>
+        <span>${gen1.name}</span>
+       
     </p>`;
 
     popularTVContainer.appendChild(movieEl);
@@ -133,8 +183,11 @@ async function getMoviesBySearch(url) {
   searchedMoviesContainer.innerHTML = "";
 
   results.forEach((movie) => {
-    const { title, poster_path, vote_average, release_date } = movie;
+    const { title, poster_path, vote_average, release_date, genre_ids } = movie;
     const movieRating = movie.vote_average.toFixed(1);
+
+    const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
+    const gen1 = genresListMovies.find((gen1) => gen1.id === genre_ids[1]);
 
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
@@ -148,8 +201,8 @@ async function getMoviesBySearch(url) {
       </div>
     </div>
     <p class="release">
-        Realease date:
-        <span>${release_date}</span>
+      <span>${gen.name}</span>
+      <span>${gen1.name}</span>
     </p>`;
 
     searchedMoviesContainer.appendChild(movieEl);
@@ -189,7 +242,7 @@ async function getTopRatedMovies() {
     const movieEl = document.createElement("li");
     movieEl.classList.add("top-rated-item");
     movieEl.innerHTML = `<span class="top-rated-info">
-    ${title}<span class="score">${vote_average}</span>
+    ${title}<span class="score">${movieRating}</span>
   </span>
   <span class="top-rated-release-date">${release_date}</span>`;
 
@@ -211,9 +264,37 @@ async function getTopRatedTV() {
     const movieEl = document.createElement("li");
     movieEl.classList.add("top-rated-item");
     movieEl.innerHTML = `
-    <span class="top-rated-info"> ${name}<span class="score">${vote_average}</span></span>
+    <span class="top-rated-info"> ${name}<span class="score">${movieRating}</span></span>
   <span class="top-rated-release-date">${first_air_date}</span>`;
 
     topRatedTVList.appendChild(movieEl);
   });
 }
+
+//Slider
+
+const sliders = document.querySelectorAll(".slider");
+let isDown = false;
+let startX;
+let scrollLeft;
+
+sliders.forEach((slider) => {
+  slider.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  });
+  slider.addEventListener("mouseleave", () => {
+    isDown = false;
+  });
+  slider.addEventListener("mouseup", () => {
+    isDown = false;
+  });
+  slider.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2; //scroll-fast
+    slider.scrollLeft = scrollLeft - walk;
+  });
+});

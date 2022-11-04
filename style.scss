@@ -43,7 +43,7 @@ ul {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 28px;
   color: black;
 }
 
@@ -95,8 +95,8 @@ form {
     background-color: transparent;
     border: none;
     border-radius: 50px;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background-color: rgb(71, 71, 71);
     cursor: pointer;
 
@@ -236,6 +236,14 @@ form {
       letter-spacing: 0.5px;
     }
   }
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  transition: all 0.4s;
+  will-change: transform;
+  user-select: none;
 }
 
 //footer
