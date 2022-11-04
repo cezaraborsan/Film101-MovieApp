@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <a href=""><h1>Movies and TV Shows</h1></a>
+          <form class="form">
+            <input
+              type="text"
+              id="search"
+              class="search"
+              placeholder="find a film..."
+            />
+            <button type="submit" class="searchButton">
+              <img src="imgs\search_FILL0_wght400_GRAD0_opsz48.svg" alt="" />
+            </button>
+          </form>
+          <div class="nav-buttons">
+            <button>Movies</button>
+            <button>TV Shows</button>
+            <button>Sign in</button>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <section class="standard-movies">
+          <div class="movies-categories">
+            <h2>This week's top movies</h2>
+            <div class="movies-container popular-movies"></div>
+          </div>
+
+          <section class="top-rated">
+            <div class="top-rated-lists">
+              <h2>Top Rated Movies</h2>
+              <ul class="top-rated-movies"></ul>
+            </div>
+            <div class="top-rated-lists">
+              <h2>Top Rated TV Shows</h2>
+              <ul class="top-rated-tv-shows"></ul>
+            </div>
+          </section>
+
+          <div class="movies-categories">
+            <h2>This week's top TV Shows</h2>
+            <div class="movies-container popular-tv"></div>
+          </div>
+
+          <div class="movies-categories">
+            <h2>Upcoming Movies:</h2>
+            <div class="movies-container upcoming-movies"></div>
+          </div>
+        </section>
+
+        <div class="movies-categories searched">
+          <h2>Your search results:</h2>
+          <div class="movies-container searched-movies"></div>
+        </div>
+      </main>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="social-media">
+          <h4 class="footer-subtitle">Follow us</h4>
+
+          <ul class="social-links">
+            <li>
+              <a href="#"
+                ><img src="imgs\Instagram-icon.svg" alt="instagram logo"
+              /></a>
+            </li>
+            <li>
+              <a href="#"
+                ><img src="imgs\Facebook-icon.svg" alt="facebook logo"
+              /></a>
+            </li>
+            <li>
+              <a href="#"
+                ><img src="imgs\Twitter-icon.svg" alt="twitter logo"
+              /></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="information">
+          <h4 class="footer-subtitle">Information</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Newsletter</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Legal Notice</a></li>
+          </ul>
+        </div>
+
+        <div class="contactus">
+          <h4 class="footer-subtitle">Contact Us</h4>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <img src="imgs\Location-icon.svg" alt="location" />
+              <address>343 Rose Rd. Bellflower, CA 90706</address>
+            </li>
+            <li class="contact-item">
+              <img src="imgs\Email-icon.svg" alt="email" class="email" />
+              <p>example@movieapp.com</p>
+            </li>
+            <li class="contact-item">
+              <img src="imgs\Phone-icon.svg" alt="phone" />
+              <p>510-212-8970</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="">FAQ</a>
+        <a href="">Help & Support</a>
+        <a href="">Contact</a>
+        <a href="">Privacy Policy</a>
+        <a href="">Cookie Settings</a>
+        <a href="">Terms of use</a>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

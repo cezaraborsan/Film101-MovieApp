@@ -1,0 +1,341 @@
+@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Albert Sans", sans-serif;
+  font-size: 16px;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 50px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  padding: 24px 24px 0 24px;
+  width: 100%;
+  min-width: 350px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+h1 {
+  font-size: 32px;
+  color: black;
+}
+
+h2 {
+  padding: 3rem 0 1.5rem;
+}
+
+header {
+  margin-bottom: 4rem;
+}
+
+nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav .nav-buttons button {
+  background-color: transparent;
+  border: none;
+  font-size: "Albert Sans", sans-serif;
+  font-size: 16px;
+  padding: 0.5rem 1rem;
+  background-color: #474747;
+  color: white;
+  border-radius: 10px;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 auto;
+  width: 30vw;
+  border-radius: 50px;
+  padding: 0 0.5rem;
+  border: 1px solid rgba(71, 71, 71, 0.8);
+}
+
+form input {
+  background: transparent;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  outline: none;
+  border: none;
+  padding: 0.7rem;
+  font-size: 16px;
+}
+
+form button {
+  background-color: transparent;
+  border: none;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  background-color: #474747;
+  cursor: pointer;
+}
+
+form button img {
+  width: 25px;
+}
+
+.movies-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[12];
+      grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  overflow: scroll;
+}
+
+.movies-container::-webkit-scrollbar {
+  display: none;
+}
+
+.searched {
+  display: none;
+}
+
+.top-rated {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 20vw;
+}
+
+.top-rated .top-rated-lists h2::before {
+  content: "|";
+  width: 5px;
+  height: 12px;
+  padding-right: 0.2rem;
+  color: rgba(65, 65, 65, 0.9);
+}
+
+.top-rated .top-rated-lists ul .top-rated-item {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0.2rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+.top-rated .top-rated-lists ul .top-rated-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 5vw;
+}
+
+.top-rated .top-rated-lists ul .top-rated-info .score {
+  background-color: greenyellow;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  width: 40px;
+}
+
+.top-rated .top-rated-lists ul .top-rated-release-date {
+  font-size: 12px;
+  font-weight: 500;
+  position: relative;
+  top: -8px;
+}
+
+.movie {
+  background-color: rgba(94, 94, 94, 0.3);
+  padding: 1.1rem;
+  border-radius: 10px;
+  width: 245px;
+  -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.movie:hover {
+  opacity: 0.8;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.movie .poster {
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 4px;
+  max-width: 250px;
+  height: 310px;
+}
+
+.movie .movie-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 0.5rem 0;
+  height: 70px;
+  position: relative;
+}
+
+.movie .movie-details h3 {
+  font-size: 18px;
+  padding-top: 1rem;
+}
+
+.movie .movie-details .rating {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.2rem;
+  font-weight: bold;
+  position: absolute;
+  top: -36%;
+  left: 38%;
+  background-color: rgba(65, 65, 65, 0.9);
+  color: white;
+  padding: 0.7rem;
+  border-radius: 50%;
+}
+
+.movie .movie-details .rating img {
+  width: 20px;
+  display: none;
+}
+
+.movie .release {
+  padding: 0.5rem 0;
+}
+
+.movie .release span {
+  background-color: #414141;
+  color: white;
+  padding: 0.2rem 0.4rem;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+footer {
+  background-color: #474747;
+  padding: 3rem;
+  margin-top: 3rem;
+}
+
+.footer-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+}
+
+.social-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links img {
+  width: 28px;
+}
+
+.contact-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0.8rem;
+}
+
+footer li {
+  padding: 8px 0;
+}
+
+footer a {
+  color: white;
+}
+
+h4 {
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.footer-links a {
+  padding: 0 1rem;
+  font-size: 12px;
+  color: #b4b4b4;
+}
+
+.footer-links a:not(:last-child) {
+  border-right: 1px solid #b4b4b4;
+}
+/*# sourceMappingURL=style.css.map */
