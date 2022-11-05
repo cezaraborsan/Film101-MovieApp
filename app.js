@@ -9,6 +9,7 @@ const SERACH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${MY_API_K
 
 const topRatedMovies_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${MY_API_KEY}&language=en-US&page=1`;
 const topRatedTV_URL = `https://api.themoviedb.org/3/tv/top_rated?api_key=${MY_API_KEY}&language=en-US&page=1`;
+const tvOnTheAir_URL = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${MY_API_KEY}&language=en-US&page=1`;
 const posterPath = "https://image.tmdb.org/t/p/w1280";
 const genres_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MY_API_KEY}&language=en-US`;
 
@@ -68,6 +69,7 @@ getPopularMovies(popularMovies_URL);
 getUpcomingMovies(upcomingMovies_URL);
 getPopularTV(popularTV_URL);
 getTopRatedMovies(topRatedMovies_URL);
+getTVOnTheAir(tvOnTheAir_URL);
 getTopRatedTV(topRatedTV_URL);
 
 async function getPopularMovies() {
@@ -225,8 +227,13 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+// TOP RATED MOVIES AND TV SHOWS SECTIONS
+
 const topRatedMoviesList = document.querySelector(".top-rated-movies");
 const topRatedTVList = document.querySelector(".top-rated-tv-shows");
+const tvOnTheAir = document.querySelector(".tv-on-the-air");
+
+//TOP RATED MOVIES
 
 async function getTopRatedMovies() {
   const response = await fetch(topRatedMovies_URL);
@@ -250,6 +257,8 @@ async function getTopRatedMovies() {
   });
 }
 
+// TOP RATED TV SHOWS
+
 async function getTopRatedTV() {
   const response = await fetch(topRatedTV_URL);
   const data = await response.json();
@@ -268,6 +277,29 @@ async function getTopRatedTV() {
   <span class="top-rated-release-date">${first_air_date}</span>`;
 
     topRatedTVList.appendChild(movieEl);
+  });
+}
+
+// TV ON THE AIR
+
+async function getTVOnTheAir() {
+  const response = await fetch(tvOnTheAir_URL);
+  const data = await response.json();
+  const results = data.results.slice(0, 10);
+
+  topRatedTVList.innerHTML = "";
+
+  results.forEach((movie) => {
+    const { name, overview, vote_average, first_air_date } = movie;
+    const movieRating = movie.vote_average.toFixed(1);
+
+    const movieEl = document.createElement("li");
+    movieEl.classList.add("top-rated-item");
+    movieEl.innerHTML = `
+    <span class="top-rated-info"> ${name}<span class="score">${movieRating}</span></span>
+  <span class="top-rated-release-date">${first_air_date}</span>`;
+
+    tvOnTheAir.appendChild(movieEl);
   });
 }
 

@@ -49,6 +49,14 @@ h1 {
 
 h2 {
   padding: 3rem 0 1.5rem;
+
+  &::before {
+    content: "|";
+    width: 5px;
+    height: 12px;
+    padding-right: 0.2rem;
+    color: rgba(65, 65, 65, 0.9);
+  }
 }
 
 header {
@@ -77,9 +85,9 @@ form {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  width: 30vw;
+  width: 15vw;
   border-radius: 50px;
-  padding: 0 0.5rem;
+  padding: 0 0.2rem;
   border: 1px solid rgba(71, 71, 71, 0.8);
 
   input {
@@ -117,23 +125,21 @@ form {
   display: none;
 }
 
+.searched-movies {
+  grid-template-columns: repeat(24, 1fr);
+}
+
 .searched {
   display: none;
 }
 
 .top-rated {
   display: flex;
-  justify-content: center;
-  gap: 20vw;
+  justify-content: space-between;
+  gap: 3rem;
 
   .top-rated-lists {
-    h2::before {
-      content: "|";
-      width: 5px;
-      height: 12px;
-      padding-right: 0.2rem;
-      color: rgba(65, 65, 65, 0.9);
-    }
+    width: 32%;
 
     ul {
       .top-rated-item {
@@ -154,6 +160,7 @@ form {
           padding: 0.2rem 0.5rem;
           border-radius: 5px;
           width: 40px;
+          text-align: center;
         }
       }
 
@@ -244,6 +251,33 @@ form {
   transition: all 0.4s;
   will-change: transform;
   user-select: none;
+  overflow: scroll;
+  padding-right: 60px;
+  -webkit-mask: linear-gradient(to right, (#0000, #000 0% 90%, #0000));
+}
+
+// Top News Section
+
+.top-news {
+  .top-news-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    a {
+      color: #000;
+    }
+
+    li {
+      max-width: 250px;
+
+      img {
+        max-width: 250px;
+        height: 150px;
+        border-radius: 4px;
+      }
+    }
+  }
 }
 
 //footer
