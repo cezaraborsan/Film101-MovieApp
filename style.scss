@@ -31,6 +31,7 @@ body::-webkit-scrollbar-thumb {
   min-width: 350px;
   margin: 0 auto;
   max-width: 1200px;
+  position: relative;
 }
 
 a {
@@ -66,29 +67,17 @@ header {
 nav {
   display: flex;
   align-items: center;
-  .nav-buttons {
-    button {
-      background-color: transparent;
-      border: none;
-      font-size: "Albert Sans", sans-serif;
-      font-size: 16px;
-      padding: 0.5rem 1rem;
-      background-color: #474747;
-      color: white;
-      border-radius: 10px;
-    }
-  }
+  justify-content: space-between;
 }
 
 form {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  width: 15vw;
   border-radius: 50px;
   padding: 0 0.2rem;
   border: 1px solid rgba(71, 71, 71, 0.8);
+  width: 50%;
 
   input {
     background: transparent;
@@ -97,6 +86,7 @@ form {
     border: none;
     padding: 0.7rem;
     font-size: 16px;
+    width: 100%;
   }
 
   button {
@@ -252,8 +242,44 @@ form {
   will-change: transform;
   user-select: none;
   overflow: scroll;
-  padding-right: 60px;
-  -webkit-mask: linear-gradient(to right, (#0000, #000 0% 90%, #0000));
+  padding-right: 12px;
+  -webkit-mask: linear-gradient(to right, (#0000, #000 0% 98%, #0000));
+}
+
+.modal-window {
+  max-height: 100vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(94, 94, 94);
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  color: white;
+  overflow-y: scroll;
+  display: none;
+
+  img {
+    border-radius: 10px;
+    width: 100%;
+    border-radius: 4px;
+    max-width: 250px;
+  }
+
+  .cast {
+    display: flex;
+    justify-content: space-between;
+
+    .actor {
+      img {
+        max-width: 100px;
+      }
+
+      span {
+        display: block;
+      }
+    }
+  }
 }
 
 // Top News Section
@@ -263,7 +289,6 @@ form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
     a {
       color: #000;
     }
@@ -280,11 +305,40 @@ form {
   }
 }
 
+// TOP PEOPLE
+
+.top-people {
+  padding: 2rem 0;
+
+  .top-people-list {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 1rem;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .top-people-item {
+      max-width: 150px;
+      text-align: center;
+      img {
+        border-radius: 4px;
+        max-width: 150px;
+      }
+
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
 //footer
 
 footer {
   background-color: #474747;
-  padding: 3rem;
   margin-top: 3rem;
 }
 
@@ -293,6 +347,7 @@ footer {
   gap: 10rem;
   justify-content: center;
   color: white;
+  padding: 3rem;
 }
 
 // social media icons
@@ -324,7 +379,7 @@ h4 {
 
 .footer-links {
   text-align: center;
-  padding-top: 3rem;
+  padding-bottom: 3rem;
 
   a {
     padding: 0 1rem;
@@ -335,4 +390,55 @@ h4 {
 
 .footer-links a:not(:last-child) {
   border-right: 1px solid #b4b4b4;
+}
+
+@media (max-width: 1100px) {
+  //TOP RATED SECTION
+  .top-rated {
+    display: flex;
+    flex-wrap: wrap;
+
+    .top-rated-lists {
+      width: 45%;
+    }
+  }
+
+  // Top News Section
+
+  .top-news {
+    .top-news-articles {
+      gap: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  //TOP RATED SECTION
+  .top-rated {
+    .top-rated-lists {
+      width: 100%;
+    }
+  }
+
+  //SLIDER
+  .slider {
+    padding-right: 0px;
+    -webkit-mask: none;
+  }
+
+  //FOOTER
+  footer {
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      justify-content: center;
+      color: white;
+    }
+
+    .footer-links {
+      text-align: left;
+      padding: 0 1rem;
+    }
+  }
 }

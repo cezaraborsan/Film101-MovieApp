@@ -13,6 +13,8 @@ const tvOnTheAir_URL = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${MY_
 const posterPath = "https://image.tmdb.org/t/p/w1280";
 const genres_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MY_API_KEY}&language=en-US`;
 
+const popularPeople_URL = `https://api.themoviedb.org/3/person/popular?api_key=${MY_API_KEY}&language=en-US&page=1`;
+
 const form = document.querySelector(".form");
 const search = document.querySelector(".search");
 const popularMoviesContainer = document.querySelector(".popular-movies");
@@ -71,6 +73,7 @@ getPopularTV(popularTV_URL);
 getTopRatedMovies(topRatedMovies_URL);
 getTVOnTheAir(tvOnTheAir_URL);
 getTopRatedTV(topRatedTV_URL);
+getTopPeople(popularPeople_URL);
 
 async function getPopularMovies() {
   const response = await fetch(popularMovies_URL);
@@ -98,9 +101,8 @@ async function getPopularMovies() {
       </div>
     </div>
     <p class="release">
-        <span>${gen.name}</span>
-        <span>${gen1.name}</span>
-        
+        ${gen ? `<span> ${gen.name}</span>` : ``}
+        ${gen1 ? `<span> ${gen1.name}</span>` : ``}
     </p>`;
 
     popularMoviesContainer.appendChild(movieEl);
@@ -135,9 +137,8 @@ async function getPopularTV() {
       </div>
     </div>
     <p class="release">
-        <span>${gen.name}</span>
-        <span>${gen1.name}</span>
-       
+        ${gen ? `<span> ${gen.name}</span>` : ``}
+        ${gen1 ? `<span> ${gen1.name}</span>` : ``}
     </p>`;
 
     popularTVContainer.appendChild(movieEl);
@@ -330,3 +331,31 @@ sliders.forEach((slider) => {
     slider.scrollLeft = scrollLeft - walk;
   });
 });
+
+// POPULAR PEOPLE THIS WEEK
+
+const topPeopleContainer = document.querySelector(".top-people");
+const topPeopleList = document.querySelector(".top-people-list");
+
+async function getTopPeople() {
+  const response = await fetch(popularPeople_URL);
+  const data = await response.json();
+  const results = data.results.slice(0, 20);
+
+  topPeopleList.innerHTML = "";
+
+  results.forEach((person) => {
+    const { name, profile_path } = person;
+
+    const peopleEl = document.createElement("li");
+    peopleEl.classList.add("top-people-item");
+    peopleEl.innerHTML = `<img class="profile-pic" src="${
+      posterPath + profile_path
+    }" />
+    <span class="movie-title">${name}</span>
+    
+    `;
+
+    topPeopleList.appendChild(peopleEl);
+  });
+}

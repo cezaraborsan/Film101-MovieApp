@@ -32,6 +32,7 @@ body::-webkit-scrollbar-thumb {
   min-width: 350px;
   margin: 0 auto;
   max-width: 1200px;
+  position: relative;
 }
 
 a {
@@ -71,17 +72,9 @@ nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-nav .nav-buttons button {
-  background-color: transparent;
-  border: none;
-  font-size: "Albert Sans", sans-serif;
-  font-size: 16px;
-  padding: 0.5rem 1rem;
-  background-color: #474747;
-  color: white;
-  border-radius: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 form {
@@ -94,11 +87,10 @@ form {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 0 auto;
-  width: 15vw;
   border-radius: 50px;
   padding: 0 0.2rem;
   border: 1px solid rgba(71, 71, 71, 0.8);
+  width: 50%;
 }
 
 form input {
@@ -110,6 +102,7 @@ form input {
   border: none;
   padding: 0.7rem;
   font-size: 16px;
+  width: 100%;
 }
 
 form button {
@@ -297,9 +290,48 @@ form button img {
       -ms-user-select: none;
           user-select: none;
   overflow: scroll;
-  padding-right: 60px;
+  padding-right: 12px;
   -webkit-mask: -webkit-gradient(linear, left top, right top, from(#0000), color-stop(0%, #000), to(#0000));
-  -webkit-mask: linear-gradient(to right, #0000, #000 0% 90%, #0000);
+  -webkit-mask: linear-gradient(to right, #0000, #000 0% 98%, #0000);
+}
+
+.modal-window {
+  max-height: 100vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #5e5e5e;
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  color: white;
+  overflow-y: scroll;
+  display: none;
+}
+
+.modal-window img {
+  border-radius: 10px;
+  width: 100%;
+  border-radius: 4px;
+  max-width: 250px;
+}
+
+.modal-window .cast {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.modal-window .cast .actor img {
+  max-width: 100px;
+}
+
+.modal-window .cast .actor span {
+  display: block;
 }
 
 .top-news .top-news-articles {
@@ -327,9 +359,39 @@ form button img {
   border-radius: 4px;
 }
 
+.top-people {
+  padding: 2rem 0;
+}
+
+.top-people .top-people-list {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[20];
+      grid-template-columns: repeat(20, 1fr);
+  gap: 1rem;
+  overflow: scroll;
+}
+
+.top-people .top-people-list::-webkit-scrollbar {
+  display: none;
+}
+
+.top-people .top-people-list .top-people-item {
+  max-width: 150px;
+  text-align: center;
+}
+
+.top-people .top-people-list .top-people-item img {
+  border-radius: 4px;
+  max-width: 150px;
+}
+
+.top-people .top-people-list .top-people-item span {
+  font-weight: 600;
+}
+
 footer {
   background-color: #474747;
-  padding: 3rem;
   margin-top: 3rem;
 }
 
@@ -342,6 +404,7 @@ footer {
       -ms-flex-pack: center;
           justify-content: center;
   color: white;
+  padding: 3rem;
 }
 
 .social-links {
@@ -377,7 +440,7 @@ h4 {
 
 .footer-links {
   text-align: center;
-  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .footer-links a {
@@ -388,5 +451,49 @@ h4 {
 
 .footer-links a:not(:last-child) {
   border-right: 1px solid #b4b4b4;
+}
+
+@media (max-width: 1100px) {
+  .top-rated {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .top-rated .top-rated-lists {
+    width: 45%;
+  }
+  .top-news .top-news-articles {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-rated .top-rated-lists {
+    width: 100%;
+  }
+  .slider {
+    padding-right: 0px;
+    -webkit-mask: none;
+  }
+  footer .footer-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 2.5rem;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    color: white;
+  }
+  footer .footer-links {
+    text-align: left;
+    padding: 0 1rem;
+  }
 }
 /*# sourceMappingURL=style.css.map */
