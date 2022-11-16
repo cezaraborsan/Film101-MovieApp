@@ -54,10 +54,14 @@ ul {
 h1 {
   font-size: 28px;
   color: black;
+
+  span {
+    opacity: 0.5;
+  }
 }
 
 h2 {
-  padding: 3rem 0 1.5rem;
+  padding: 2.5rem 0 1.5rem;
 
   &::before {
     content: "|";
@@ -231,10 +235,15 @@ form {
 .top-rated {
   display: flex;
   justify-content: space-between;
-  gap: 3rem;
+  gap: 2rem;
+  margin-top: 2rem;
 
   .top-rated-lists {
     width: 32%;
+
+    h2 {
+      padding-top: 1rem;
+    }
 
     ul {
       .top-rated-item {
@@ -502,8 +511,10 @@ h4 {
 }
 
 .footer-links {
+  display: flex;
+  justify-content: center;
   text-align: center;
-  padding-bottom: 3rem;
+  padding: 0.5rem 2rem 3rem;
 
   a {
     padding: 0 1rem;
@@ -518,8 +529,8 @@ h4 {
 
 // *********** SCREEN SIZE < 1100px  ***********
 
-@media (max-width: 1100px) {
-  // ******** TOP RATED SECTION********
+@media (max-width: 1130px) {
+  // ******** TOP RATED SECTION ********
   .top-rated {
     display: flex;
     flex-wrap: wrap;
@@ -529,12 +540,19 @@ h4 {
     }
   }
 
-  // ******** TOP NEWS SECTION********
+  // ******** TOP NEWS SECTION ********
 
   .top-news {
     .top-news-articles {
       gap: 1.5rem;
     }
+  }
+
+  // ******** SEARCHED MOVIES / TV SHOWs********
+
+  .searched-movies {
+    grid-gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -585,6 +603,13 @@ h4 {
       }
     }
   }
+
+  // ******** SEARCHED MOVIES / TV SHOWs********
+
+  .searched-movies {
+    grid-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 // *********** SCREEN SIZE < 768px  ***********
@@ -623,8 +648,18 @@ h4 {
     }
 
     .footer-links {
+      justify-content: flex-start;
+      flex-wrap: wrap;
       text-align: left;
-      padding: 0 1rem;
     }
+  }
+}
+
+@media (max-width: 580px) {
+  // ******** SEARCHED MOVIES / TV SHOWs********
+
+  .searched-movies {
+    grid-gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
   }
 }

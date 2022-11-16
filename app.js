@@ -201,11 +201,20 @@ async function getUpcomingMovies() {
 // *********** GET UPCOMING MOVIES AND ADD THEM TO THE PAGE AND HIDE THE OTHER SECTIONS ***********
 
 const reload = document.querySelector("#loader");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
+function searchMovie() {
   const searchTerm = search.value;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    searchMovie();
+  });
+
+  form.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchMovie();
+    }
+  });
 
   if (searchTerm && searchTerm !== "") {
     standardMovies.style.display = "none";
@@ -217,7 +226,7 @@ form.addEventListener("submit", (e) => {
   } else {
     window.location.reload();
   }
-});
+}
 
 async function getMoviesBySearch(searchInput) {
   try {
