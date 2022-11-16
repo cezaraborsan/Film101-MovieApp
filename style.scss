@@ -1,5 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap");
 
+@mixin card-gradient {
+  background-color: rgb(207, 204, 214);
+}
+
+// *********** CUSTOM SCROLLBAR ***********
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: rgb(224, 224, 224);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 50px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+// *********** BODY ***********
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,20 +31,6 @@
 body {
   font-family: "Albert Sans", sans-serif;
   font-size: 16px;
-}
-
-body::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar-track {
-  background-color: rgb(224, 224, 224);
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  border-radius: 50px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .container {
@@ -60,6 +68,8 @@ h2 {
   }
 }
 
+// *********** NAVBAR ***********
+
 header {
   margin-bottom: 4rem;
 }
@@ -90,12 +100,12 @@ form {
   }
 
   button {
-    background-color: transparent;
+    @include card-gradient;
     border: none;
     border-radius: 50px;
     width: 35px;
     height: 35px;
-    background-color: rgb(71, 71, 71);
+
     cursor: pointer;
 
     img {
@@ -103,6 +113,8 @@ form {
     }
   }
 }
+
+// *********** MOVIES / TV-SHOWS SLIDERS ***********
 
 .movies-container {
   display: grid;
@@ -115,57 +127,8 @@ form {
   display: none;
 }
 
-.searched-movies {
-  grid-template-columns: repeat(24, 1fr);
-}
-
-.searched {
-  display: none;
-}
-
-.top-rated {
-  display: flex;
-  justify-content: space-between;
-  gap: 3rem;
-
-  .top-rated-lists {
-    width: 32%;
-
-    ul {
-      .top-rated-item {
-        font-size: 14px;
-        font-weight: bold;
-        padding: 0.2rem 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-      }
-      .top-rated-info {
-        display: flex;
-        justify-content: space-between;
-        gap: 5vw;
-
-        .score {
-          background-color: greenyellow;
-          padding: 0.2rem 0.5rem;
-          border-radius: 5px;
-          width: 40px;
-          text-align: center;
-        }
-      }
-
-      .top-rated-release-date {
-        font-size: 12px;
-        font-weight: 500;
-        position: relative;
-        top: -8px;
-      }
-    }
-  }
-}
-
 .movie {
-  background-color: rgba(94, 94, 94, 0.3);
+  @include card-gradient;
   padding: 1.1rem;
   border-radius: 10px;
   width: 245px;
@@ -189,7 +152,6 @@ form {
 
   .movie-details {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
     padding: 0.5rem 0;
     height: 70px;
@@ -220,7 +182,8 @@ form {
     }
   }
 
-  .release {
+  .release,
+  .genre {
     padding: 0.5rem 0;
 
     span {
@@ -246,66 +209,71 @@ form {
   -webkit-mask: linear-gradient(to right, (#0000, #000 0% 98%, #0000));
 }
 
-.modal-window {
-  max-height: 100vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(94, 94, 94);
-  padding: 2rem 3rem;
-  border-radius: 10px;
-  color: white;
-  overflow-y: scroll;
+// *********** MOVIES / TV-SHOWS SSEARCHED ***********
+
+.searched-movies {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  overflow: hidden;
+
+  .media-type {
+    display: none;
+  }
+}
+
+.searched {
   display: none;
+}
 
-  img {
-    border-radius: 10px;
-    width: 100%;
-    border-radius: 4px;
-    max-width: 250px;
-  }
+// *********** MOVIES / TV-SHOWS TOP RATED LISTS ***********
 
-  .cast {
-    display: flex;
-    justify-content: space-between;
+.top-rated {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
 
-    .actor {
-      img {
-        max-width: 100px;
-      }
+  .top-rated-lists {
+    width: 32%;
 
-      span {
-        display: block;
+    ul {
+      .top-rated-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+
+        a {
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+
+          span {
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        .score {
+          background-color: greenyellow;
+          padding: 0.4rem 0.5rem;
+          border-radius: 5px;
+          width: 40px;
+          height: auto;
+          text-align: center;
+        }
       }
     }
   }
 }
 
-// Top News Section
-
-.top-news {
-  .top-news-articles {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    a {
-      color: #000;
-    }
-
-    li {
-      max-width: 250px;
-
-      img {
-        max-width: 250px;
-        height: 150px;
-        border-radius: 4px;
-      }
-    }
-  }
-}
-
-// TOP PEOPLE
+// *********** TOP PEOPLE THIS WEEK ***********
 
 .top-people {
   padding: 2rem 0;
@@ -335,7 +303,163 @@ form {
   }
 }
 
-//footer
+// *********** TOP NEWS AND ARTICLES  ***********
+
+.top-news {
+  .top-news-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    a {
+      color: #000;
+    }
+
+    li {
+      max-width: 250px;
+
+      img {
+        max-width: 250px;
+        height: 150px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+// *********** MODAL WINDOW  ***********
+
+.modal-window-container {
+  visibility: hidden;
+
+  .modal-window {
+    @include card-gradient;
+    position: fixed;
+    width: 80%;
+    max-width: 1000px;
+    max-height: 80vh;
+    padding: 2rem;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    border-radius: 10px;
+    color: white;
+    overflow-y: scroll;
+
+    h2 {
+      font-size: 32px;
+      padding-block: 0.2rem;
+      &::before {
+        display: none;
+      }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: transparent;
+      border: none;
+      width: 32px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .release {
+      padding-bottom: 1.5rem;
+      span {
+        font-size: 14px;
+        font-weight: 400;
+        opacity: 0.8;
+      }
+
+      span:first-child::after {
+        content: "|";
+        padding: 0.5rem;
+      }
+    }
+
+    .movie-info {
+      display: flex;
+      gap: 2rem;
+      padding-bottom: 1rem;
+
+      p {
+        font-weight: bold;
+        padding-bottom: 1.5rem;
+
+        span {
+          font-weight: normal;
+        }
+      }
+    }
+
+    img {
+      border-radius: 10px;
+      width: 100%;
+      border-radius: 4px;
+      max-width: 220px;
+    }
+
+    h3 {
+      padding-bottom: 1rem;
+    }
+
+    .cast {
+      .actors {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+
+        .actor {
+          max-width: 100px;
+        }
+
+        img {
+          width: 80px;
+          height: 120px;
+        }
+
+        span {
+          display: block;
+        }
+
+        h4 {
+          span {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: capitalize;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.show {
+  visibility: visible;
+}
+
+// *********** OVERLAY  ***********
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  cursor: pointer;
+}
+
+// *********** FOOTER  ***********
 
 footer {
   background-color: #474747;
@@ -392,8 +516,10 @@ h4 {
   border-right: 1px solid #b4b4b4;
 }
 
+// *********** SCREEN SIZE < 1100px  ***********
+
 @media (max-width: 1100px) {
-  //TOP RATED SECTION
+  // ******** TOP RATED SECTION********
   .top-rated {
     display: flex;
     flex-wrap: wrap;
@@ -403,7 +529,7 @@ h4 {
     }
   }
 
-  // Top News Section
+  // ******** TOP NEWS SECTION********
 
   .top-news {
     .top-news-articles {
@@ -412,21 +538,81 @@ h4 {
   }
 }
 
+// *********** SCREEN SIZE < 900px  ***********
+
+@media (max-width: 900px) {
+  // ******** MODAL WINDOW ********
+  .modal-window-container {
+    .modal-window {
+      .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        width: 24px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    .cast {
+      .actors {
+        display: flex;
+        flex-direction: column;
+
+        .actor {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          max-width: 400px;
+        }
+
+        img {
+          width: 100px;
+          height: 150px;
+        }
+
+        h4 {
+          text-align: left;
+          span {
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: capitalize;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+// *********** SCREEN SIZE < 768px  ***********
+
 @media (max-width: 768px) {
-  //TOP RATED SECTION
+  // ******** TOP RATED SECTION ********
   .top-rated {
     .top-rated-lists {
       width: 100%;
     }
   }
 
-  //SLIDER
+  // ******** SLIDER ********
   .slider {
     padding-right: 0px;
     -webkit-mask: none;
   }
 
-  //FOOTER
+  // ******** MODAL WINDOW ********
+  .modal-window-container {
+    .modal-window {
+      .movie-info {
+        flex-direction: column;
+      }
+    }
+  }
+
+  // ******** FOOTER ********
   footer {
     .footer-content {
       display: flex;

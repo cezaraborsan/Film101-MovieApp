@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Film 101</title>
   </head>
   <body>
@@ -18,7 +19,7 @@
               type="text"
               id="search"
               class="search"
-              placeholder="find a film..."
+              placeholder="search.."
             />
             <button type="submit" class="searchButton">
               <img src="imgs\search_FILL0_wght400_GRAD0_opsz48.svg" alt="" />
@@ -166,49 +167,9 @@
           <div class="movies-container searched-movies slider"></div>
         </div>
       </main>
+      <section class="modal-window-container"></section>
+      <div id="overlay" onclick="hideModal()"></div>
     </div>
-
-    <section class="modal-window">
-      <h2>Sherk <span>2021</span> <span>1h30m</span></h2>
-
-      <img src="imgs\poster1.png" alt="" />
-      <h3>Movie info</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor expedita
-        dicta sit itaque nulla repellendus? Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Dolor nobis corporis itaque laborum
-        aspernatur atque amet. Molestias rem ducimus optio.
-      </p>
-
-      <div class="cast-info">
-        <h3>Cast and Crew</h3>
-        <div class="cast">
-          <div class="actor">
-            <img src="imgs\actor1.jpg" alt="" />
-            <span>Mike Myers</span>
-            <span>Shrek (voice)</span>
-          </div>
-
-          <div class="actor">
-            <img src="imgs\actor1.jpg" alt="" />
-            <span>Mike Myers</span>
-            <span>Shrek (voice)</span>
-          </div>
-
-          <div class="actor">
-            <img src="imgs\actor1.jpg" alt="" />
-            <span>Mike Myers</span>
-            <span>Shrek (voice)</span>
-          </div>
-
-          <div class="actor">
-            <img src="imgs\actor1.jpg" alt="" />
-            <span>Mike Myers</span>
-            <span>Shrek (voice)</span>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <footer>
       <div class="footer-content">
