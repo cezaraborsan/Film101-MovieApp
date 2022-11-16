@@ -103,7 +103,6 @@ async function getPopularMovies() {
       <div class="movie-details">
         <a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3><a/>
         <div class="rating">
-          <img src="../imgs/star.png" alt="rating star" />
           <span>${movieRating}</span>
         </div>
       </div>
@@ -146,7 +145,6 @@ async function getPopularTV() {
       <div class="movie-details">
       <a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3><a/>
         <div class="rating">
-          <img src="../imgs/star.png" alt="rating star" />
           <span>${movieRating}</span>
         </div>
       </div>
@@ -185,7 +183,6 @@ async function getUpcomingMovies() {
     <div class="movie-details">
     <a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3><a/>
       <div class="rating">
-        <img src="../imgs/star.png" alt="rating star" />
         <span>${movieRating}</span>
       </div>
     </div>
@@ -259,7 +256,7 @@ async function getMoviesBySearch(searchInput) {
         ? `<a onclick="movieSelected('${id}')"><img class="poster" src="${
             posterPath + poster_path
           }" /> <span class='media-type'>${media_type}</span> <a/>`
-        : `<a onclick="movieSelected('${id}')"><img class="poster" src="../imgs/blank.jpg" alt="blank page"> <span class='media-type'>${media_type}</span><a/>`
+        : `<a onclick="movieSelected('${id}')"><img class="poster" src="./imgs/blank.jpg" alt="blank page"> <span class='media-type'>${media_type}</span><a/>`
     }
    
     <div class="movie-details">
@@ -269,7 +266,6 @@ async function getMoviesBySearch(searchInput) {
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
       <div class="rating">
-        <img src="../imgs/star.png" alt="rating star" />
         ${vote_average ? `<span>${vote_average.toFixed(1)}</span>` : `0.0`}
       </div>
     </div>
@@ -498,7 +494,7 @@ async function getMovie() {
     movieEl.classList.add("modal-window");
     movieEl.innerHTML = `
       <h2>${results.title}</h2>
-      <button class='close-modal' onclick='closeModalWindow()'><img src='../imgs/close.svg' alt='close' /></button>
+      <button class='close-modal' onclick='closeModalWindow()'><img src='./imgs/close.svg' alt='close' /></button>
       <p class='release'>
         <span> Release date: ${results.release_date} </span>
         <span> ${results.runtime} min </span>
@@ -548,7 +544,7 @@ async function getMovie() {
         ${
           actor.profile_path
             ? `<img class="poster" src="${posterPath + actor.profile_path}" />`
-            : `<img class="poster" src="../imgs/blank.jpg" alt="blank page">`
+            : `<img class="poster" src="./imgs/blank.jpg" alt="blank page">`
         }
         <h4>${actor.name}<span> ${actor.character}</span></h4>`;
         castContainer.appendChild(castEl);
@@ -589,7 +585,7 @@ async function getTVShow() {
       <h2>${results.name}</h2>`
           : `<h2>${results.title}</h2>`
       }
-      <button class='close-modal' onclick='closeModalWindow()'> <img src='../imgs/close.svg' alt='close' /> </button>
+      <button class='close-modal' onclick='closeModalWindow()'> <img src='./imgs/close.svg' alt='close' /> </button>
       <p class='release'>
         <span> Release date: ${results.first_air_date} </span>
         <span> ${results.episode_run_time} min </span>
@@ -651,7 +647,7 @@ async function getTVShow() {
               ? `<img class="poster" src="${
                   posterPath + actor.profile_path
                 }" />`
-              : `<img class="poster" src="../imgs/blank.jpg" alt="blank page">`
+              : `<img class="poster" src="./imgs/blank.jpg" alt="blank page">`
           }
            <h4> ${actor.name} <span> ${actor.character} </span> </h4>
           `;
@@ -668,7 +664,7 @@ async function getTVShow() {
               ? `<img class="poster" src="${
                   posterPath + actor.profile_path
                 }" />`
-              : `<img class="poster" src="../imgs/blank.jpg" alt="blank page">`
+              : `<img class="poster" src="./imgs/blank.jpg" alt="blank page">`
           }
           <h4>${actor.name}<span>${actor.known_for_department}</span></h4>`;
           castContainer.appendChild(crewEl);

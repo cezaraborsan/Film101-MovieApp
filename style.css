@@ -583,7 +583,7 @@ h4 {
     font-weight: bold;
     cursor: pointer;
   }
-  .modal-window-container .cast .actors {
+  .modal-window-container .modal-window .cast .actors {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -592,7 +592,7 @@ h4 {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .modal-window-container .cast .actors .actor {
+  .modal-window-container .modal-window .cast .actors .actor {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -602,14 +602,14 @@ h4 {
     gap: 2rem;
     max-width: 400px;
   }
-  .modal-window-container .cast .actors img {
+  .modal-window-container .modal-window .cast .actors img {
     width: 100px;
     height: 150px;
   }
-  .modal-window-container .cast .actors h4 {
+  .modal-window-container .modal-window .cast .actors h4 {
     text-align: left;
   }
-  .modal-window-container .cast .actors h4 span {
+  .modal-window-container .modal-window .cast .actors h4 span {
     font-size: 14px;
     font-weight: 500;
     text-transform: capitalize;

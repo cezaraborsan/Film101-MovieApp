@@ -554,32 +554,32 @@ h4 {
         font-weight: bold;
         cursor: pointer;
       }
-    }
 
-    .cast {
-      .actors {
-        display: flex;
-        flex-direction: column;
-
-        .actor {
+      .cast {
+        .actors {
           display: flex;
-          align-items: center;
-          gap: 2rem;
-          max-width: 400px;
-        }
+          flex-direction: column;
 
-        img {
-          width: 100px;
-          height: 150px;
-        }
+          .actor {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 400px;
+          }
 
-        h4 {
-          text-align: left;
-          span {
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: capitalize;
-            opacity: 0.8;
+          img {
+            width: 100px;
+            height: 150px;
+          }
+
+          h4 {
+            text-align: left;
+            span {
+              font-size: 14px;
+              font-weight: 500;
+              text-transform: capitalize;
+              opacity: 0.8;
+            }
           }
         }
       }
