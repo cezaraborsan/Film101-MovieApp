@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500,800,900&display=swap");
 *::-webkit-scrollbar {
   width: 10px;
 }
@@ -110,7 +110,9 @@ form input {
 }
 
 form button {
-  background-color: #cfccd6;
+  background: #f2f2f2;
+  border: 1px solid rgba(41, 41, 41, 0.1);
+  border-radius: 8px;
   border: none;
   border-radius: 50px;
   width: 35px;
@@ -122,6 +124,18 @@ form button img {
   width: 25px;
 }
 
+.categories-movies-btns button {
+  padding: 0.5rem 0.4rem;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #ffffff;
+  border: 1px solid rgba(41, 41, 41, 0.25);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .movies-container {
   display: -ms-grid;
   display: grid;
@@ -129,6 +143,7 @@ form button img {
       grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
   overflow: scroll;
+  color: #292929;
 }
 
 .movies-container::-webkit-scrollbar {
@@ -136,12 +151,12 @@ form button img {
 }
 
 .movie {
-  background-color: #cfccd6;
+  background: #f2f2f2;
+  border: 1px solid rgba(41, 41, 41, 0.1);
+  border-radius: 8px;
   padding: 1.1rem;
   border-radius: 10px;
   width: 245px;
-  -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-          box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
 }
@@ -188,17 +203,27 @@ form button img {
   gap: 0.2rem;
   font-weight: bold;
   position: absolute;
-  top: -36%;
-  left: 38%;
-  background-color: rgba(65, 65, 65, 0.9);
-  color: white;
-  padding: 0.7rem;
-  border-radius: 50%;
+  top: -28%;
+  left: 37%;
+  padding: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 8px;
 }
 
-.movie .movie-details .rating img {
-  width: 20px;
-  display: none;
+.movie .movie-details .rating .green {
+  background: #dbffe3;
+  border: 2px solid #4bfb72;
+}
+
+.movie .movie-details .rating .yellow {
+  background: #fff1ce;
+  border: 2px solid #fbca4b;
+}
+
+.movie .movie-details .rating .red {
+  background: #ffdeda;
+  border: 2px solid #fb604b;
 }
 
 .movie .release,
@@ -208,13 +233,14 @@ form button img {
 
 .movie .release span,
 .movie .genre span {
-  background-color: #414141;
-  color: white;
   padding: 0.2rem 0.4rem;
-  font-size: 12px;
-  border-radius: 4px;
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
+  background: #ffffff;
+  border: 1px solid rgba(41, 41, 41, 0.25);
+  border-radius: 4px;
 }
 
 .slider {
@@ -246,7 +272,10 @@ form button img {
   display: none;
 }
 
-.searched {
+.searched,
+.action,
+.romance,
+.documentary {
   display: none;
 }
 
@@ -305,12 +334,26 @@ form button img {
 }
 
 .top-rated .top-rated-lists ul .top-rated-item .score {
-  background-color: greenyellow;
   padding: 0.4rem 0.5rem;
   border-radius: 5px;
   width: 40px;
   height: auto;
   text-align: center;
+}
+
+.top-rated .top-rated-lists ul .top-rated-item .green {
+  background: #dbffe3;
+  border: 2px solid #4bfb72;
+}
+
+.top-rated .top-rated-lists ul .top-rated-item .yellow {
+  background: #fff1ce;
+  border: 2px solid #fbca4b;
+}
+
+.top-rated .top-rated-lists ul .top-rated-item .red {
+  background: #ffdeda;
+  border: 2px solid #fb604b;
 }
 
 .top-people {
@@ -374,7 +417,9 @@ form button img {
 }
 
 .modal-window-container .modal-window {
-  background-color: #cfccd6;
+  background: #f2f2f2;
+  border: 1px solid rgba(41, 41, 41, 0.1);
+  border-radius: 8px;
   position: fixed;
   width: 80%;
   max-width: 1000px;
@@ -387,8 +432,9 @@ form button img {
   left: 0;
   z-index: 100;
   border-radius: 10px;
-  color: white;
   overflow-y: scroll;
+  color: #292929;
+  opacity: 0.95;
 }
 
 .modal-window-container .modal-window h2 {
@@ -413,11 +459,11 @@ form button img {
 
 .modal-window-container .modal-window .release {
   padding-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .modal-window-container .modal-window .release span {
   font-size: 14px;
-  font-weight: 400;
   opacity: 0.8;
 }
 
@@ -461,7 +507,7 @@ form button img {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .modal-window-container .modal-window .cast .actors .actor {

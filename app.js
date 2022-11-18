@@ -75,6 +75,8 @@ getTVOnTheAir(tvOnTheAir_URL);
 getTopRatedTV(topRatedTV_URL);
 getTopPeople(popularPeople_URL);
 
+//*********** EVENT LISTENERS ***********
+
 //*********** GET POPULAR MOVIES AND ADD THEM TO THE PAGE ***********
 
 async function getPopularMovies() {
@@ -103,7 +105,9 @@ async function getPopularMovies() {
       <div class="movie-details">
         <a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3><a/>
         <div class="rating">
-          <span>${movieRating}</span>
+          <span class='${getClassByRate(
+            movieRating
+          )} rating'>${movieRating}</span>
         </div>
       </div>
 
@@ -145,7 +149,9 @@ async function getPopularTV() {
       <div class="movie-details">
       <a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3><a/>
         <div class="rating">
-          <span>${movieRating}</span>
+          <span class='${getClassByRate(
+            movieRating
+          )} rating'>${movieRating}</span>
         </div>
       </div>
       <p class="genre">
@@ -183,7 +189,9 @@ async function getUpcomingMovies() {
     <div class="movie-details">
     <a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3><a/>
       <div class="rating">
-        <span>${movieRating}</span>
+        <span class='${getClassByRate(
+          movieRating
+        )} rating'>${movieRating}</span>
       </div>
     </div>
     <p class="release">
@@ -275,8 +283,16 @@ async function getMoviesBySearch(searchInput) {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating">
-        ${vote_average ? `<span>${vote_average.toFixed(1)}</span>` : `0.0`}
+      <div class="rating ${getClassByRate(vote_average)}" >
+        ${
+          vote_average
+            ? `<span class = ' rating ${getClassByRate(
+                vote_average
+              )}'>${vote_average.toFixed(1)}</span>`
+            : `<span class = '${getClassByRate(
+                vote_average
+              )} rating'>0.0</span>`
+        }
       </div>
     </div>
     <p class="genre">
@@ -285,6 +301,257 @@ async function getMoviesBySearch(searchInput) {
     </p>
     `;
       searchedMoviesContainer.appendChild(movieEl);
+    });
+  } catch (err) {
+    console.log("ERROR!" + err);
+  }
+}
+
+//********** GET ACTION MOVIES *******************
+
+const actionBtn = document.querySelector(".action-button");
+const actionMovies = document.querySelector(".action-movies");
+const actionMoviesContainer = document.querySelector(".action");
+
+const romanceBtn = document.querySelector(".romance-button");
+const romanceMovies = document.querySelector(".romance-movies");
+const romanceMoviesContainer = document.querySelector(".romance");
+
+const documentaryBtn = document.querySelector(".documentary-button");
+const documentaryMovies = document.querySelector(".documentary-movies");
+const documentaryMoviesContainer = document.querySelector(".documentary");
+
+actionBtn.addEventListener("click", () => {
+  getActionMovies();
+  standardMovies.style.display = "none";
+  topNewsContainer.style.display = "none";
+  romanceMoviesContainer.style.display = "none";
+  documentaryMoviesContainer.style.display = "none";
+  actionMoviesContainer.style.display = "block";
+});
+
+romanceBtn.addEventListener("click", () => {
+  getRomanceMovies();
+  standardMovies.style.display = "none";
+  topNewsContainer.style.display = "none";
+  romanceMoviesContainer.style.display = "block";
+  actionMoviesContainer.style.display = "none";
+  documentaryMoviesContainer.style.display = "none";
+});
+
+documentaryBtn.addEventListener("click", () => {
+  getDocumentaryMovies();
+  standardMovies.style.display = "none";
+  topNewsContainer.style.display = "none";
+  romanceMoviesContainer.style.display = "none";
+  actionMoviesContainer.style.display = "none";
+  documentaryMoviesContainer.style.display = "block";
+});
+
+async function getActionMovies() {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${MY_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page1&with_genres=28&without_genres=35%2C99%2C10751%2C27%2C10402%2C10749&with_watch_monetization_types=flatrate`
+    );
+    const data = response.data;
+    const results = data.results.slice(0, 20);
+    const actionItems = results.filter(
+      (result) =>
+        result.known_for_department !== "Directing" &&
+        result.known_for_department !== "Acting"
+    );
+
+    actionMovies.innerHTML = "";
+
+    actionItems.forEach((movie) => {
+      const {
+        title,
+        poster_path,
+        vote_average,
+        genre_ids,
+        name,
+        id,
+        media_type,
+      } = movie;
+
+      const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
+      const gen1 = genresListMovies.find((gen1) => gen1.id === genre_ids[1]);
+
+      const movieEl = document.createElement("div");
+      movieEl.classList.add("movie");
+      movieEl.innerHTML = `
+    ${
+      poster_path
+        ? `<a onclick="movieSelected('${id}')"><img class="poster" src="${
+            posterPath + poster_path
+          }" /> <span class='media-type'>${media_type}</span> <a/>`
+        : `<a onclick="movieSelected('${id}')"><img class="poster" src="./imgs/blank.jpg" alt="blank page"> <span class='media-type'>${media_type}</span><a/>`
+    }
+   
+    <div class="movie-details">
+    ${
+      title
+        ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
+        : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
+    } 
+      <div class="rating ${getClassByRate(vote_average)}" >
+        ${
+          vote_average
+            ? `<span class = ' rating ${getClassByRate(
+                vote_average
+              )}'>${vote_average.toFixed(1)}</span>`
+            : `<span class = '${getClassByRate(
+                vote_average
+              )} rating'>0.0</span>`
+        }
+      </div>
+    </div>
+    <p class="genre">
+      ${gen ? `<span> ${gen.name}</span>` : ``}
+      ${gen1 ? `<span> ${gen1.name}</span>` : ``}
+    </p>
+    `;
+      actionMovies.appendChild(movieEl);
+    });
+  } catch (err) {
+    console.log("ERROR!" + err);
+  }
+}
+
+async function getRomanceMovies() {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${MY_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page1&with_genres=10749&without_genres=80%2C99%2C36%2C27&with_watch_monetization_types=flatrate`
+    );
+    const data = response.data;
+    const results = data.results.slice(0, 20);
+    const romanceItems = results.filter(
+      (result) =>
+        result.known_for_department !== "Directing" &&
+        result.known_for_department !== "Acting"
+    );
+
+    romanceMovies.innerHTML = "";
+
+    romanceItems.forEach((movie) => {
+      const {
+        title,
+        poster_path,
+        vote_average,
+        genre_ids,
+        name,
+        id,
+        media_type,
+      } = movie;
+
+      const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
+      const gen1 = genresListMovies.find((gen1) => gen1.id === genre_ids[1]);
+
+      const movieEl = document.createElement("div");
+      movieEl.classList.add("movie");
+      movieEl.innerHTML = `
+    ${
+      poster_path
+        ? `<a onclick="movieSelected('${id}')"><img class="poster" src="${
+            posterPath + poster_path
+          }" /> <span class='media-type'>${media_type}</span> <a/>`
+        : `<a onclick="movieSelected('${id}')"><img class="poster" src="./imgs/blank.jpg" alt="blank page"> <span class='media-type'>${media_type}</span><a/>`
+    }
+   
+    <div class="movie-details">
+    ${
+      title
+        ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
+        : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
+    } 
+      <div class="rating ${getClassByRate(vote_average)}" >
+        ${
+          vote_average
+            ? `<span class = ' rating ${getClassByRate(
+                vote_average
+              )}'>${vote_average.toFixed(1)}</span>`
+            : `<span class = '${getClassByRate(
+                vote_average
+              )} rating'>0.0</span>`
+        }
+      </div>
+    </div>
+    <p class="genre">
+      ${gen ? `<span> ${gen.name}</span>` : ``}
+      ${gen1 ? `<span> ${gen1.name}</span>` : ``}
+    </p>
+    `;
+      romanceMovies.appendChild(movieEl);
+    });
+  } catch (err) {
+    console.log("ERROR!" + err);
+  }
+}
+
+async function getDocumentaryMovies() {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${MY_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page1&with_genres=99&without_genres=878%2C27%2C14&with_watch_monetization_types=flatrate`
+    );
+    const data = response.data;
+    const results = data.results.slice(0, 20);
+    const documentaryItems = results.filter(
+      (result) =>
+        result.known_for_department !== "Directing" &&
+        result.known_for_department !== "Acting"
+    );
+
+    documentaryMovies.innerHTML = "";
+
+    documentaryItems.forEach((movie) => {
+      const {
+        title,
+        poster_path,
+        vote_average,
+        genre_ids,
+        name,
+        id,
+        media_type,
+      } = movie;
+
+      const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
+      const gen1 = genresListMovies.find((gen1) => gen1.id === genre_ids[1]);
+
+      const movieEl = document.createElement("div");
+      movieEl.classList.add("movie");
+      movieEl.innerHTML = `
+    ${
+      poster_path
+        ? `<a onclick="movieSelected('${id}')"><img class="poster" src="${
+            posterPath + poster_path
+          }" /> <span class='media-type'>${media_type}</span> <a/>`
+        : `<a onclick="movieSelected('${id}')"><img class="poster" src="./imgs/blank.jpg" alt="blank page"> <span class='media-type'>${media_type}</span><a/>`
+    }
+   
+    <div class="movie-details">
+    ${
+      title
+        ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
+        : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
+    } 
+      <div class="rating ${getClassByRate(vote_average)}" >
+        ${
+          vote_average
+            ? `<span class = ' rating ${getClassByRate(
+                vote_average
+              )}'>${vote_average.toFixed(1)}</span>`
+            : `<span class = '${getClassByRate(
+                vote_average
+              )} rating'>0.0</span>`
+        }
+      </div>
+    </div>
+    <p class="genre">
+      ${gen ? `<span> ${gen.name}</span>` : ``}
+      ${gen1 ? `<span> ${gen1.name}</span>` : ``}
+    </p>
+    `;
+      documentaryMovies.appendChild(movieEl);
     });
   } catch (err) {
     console.log("ERROR!" + err);
@@ -316,7 +583,9 @@ async function getTopRatedMovies() {
       movieEl.innerHTML = `
         <a class='item-title' onclick="movieSelected('${id}')">${title}
         <span class="top-rated-release-date">${releaseDate}</span></a>
-        <span class="score">${movieRating}</span>`;
+        <span class="score ${getClassByRate(
+          movieRating
+        )}">${movieRating}</span>`;
       topRatedMoviesList.appendChild(movieEl);
     });
   } catch (err) {
@@ -344,7 +613,9 @@ async function getTopRatedTV() {
       movieEl.innerHTML = `
         <a class='item-title' onclick="movieSelected('${id}')">${name}
         <span class="top-rated-release-date">${airDate}</span></a>
-        <span class="score">${movieRating}</span>`;
+        <span class="score ${getClassByRate(
+          movieRating
+        )}">${movieRating}</span>`;
       topRatedTVList.appendChild(movieEl);
     });
   } catch (err) {
@@ -372,7 +643,7 @@ async function getTVOnTheAir() {
       movieEl.innerHTML = `
         <a class='item-title' onclick="movieSelected('${id}')">${name}
         <span class="top-rated-release-date">${airDate}</span></a>
-        <span class="score">${movieRating}</span>
+        <span class="score ${getClassByRate(movieRating)}">${movieRating}</span>
         `;
       tvOnTheAir.appendChild(movieEl);
     });
@@ -729,3 +1000,13 @@ sliders.forEach((slider) => {
     slider.scrollLeft = scrollLeft - walk;
   });
 });
+
+function getClassByRate(movieRating) {
+  if (movieRating >= 8) {
+    return "green";
+  } else if (movieRating >= 5) {
+    return "yellow";
+  } else {
+    return "red";
+  }
+}

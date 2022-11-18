@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500,800,900&display=swap");
 
 @mixin card-gradient {
-  background-color: rgb(207, 204, 214);
+  background: #f2f2f2;
+  border: 1px solid rgba(41, 41, 41, 0.1);
+  border-radius: 8px;
 }
 
 // *********** CUSTOM SCROLLBAR ***********
@@ -118,6 +120,22 @@ form {
   }
 }
 
+// *********** MOVIES BY CATEGORIES BUTTONS ***********
+
+.categories-movies-btns {
+  button {
+    padding: 0.5rem 0.4rem;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #ffffff;
+    border: 1px solid rgba(41, 41, 41, 0.25);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
 // *********** MOVIES / TV-SHOWS SLIDERS ***********
 
 .movies-container {
@@ -125,6 +143,7 @@ form {
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
   overflow: scroll;
+  color: #292929;
 }
 
 .movies-container::-webkit-scrollbar {
@@ -136,8 +155,6 @@ form {
   padding: 1.1rem;
   border-radius: 10px;
   width: 245px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   transition: 0.3s all;
 
   &:hover {
@@ -172,16 +189,26 @@ form {
       gap: 0.2rem;
       font-weight: bold;
       position: absolute;
-      top: -36%;
-      left: 38%;
-      background-color: rgba(65, 65, 65, 0.9);
-      color: white;
-      padding: 0.7rem;
-      border-radius: 50%;
+      top: -28%;
+      left: 37%;
+      padding: 6px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
 
-      img {
-        width: 20px;
-        display: none;
+      .green {
+        background: #dbffe3;
+        border: 2px solid #4bfb72;
+      }
+
+      .yellow {
+        background: #fff1ce;
+        border: 2px solid #fbca4b;
+      }
+
+      .red {
+        background: #ffdeda;
+        border: 2px solid #fb604b;
       }
     }
   }
@@ -191,13 +218,14 @@ form {
     padding: 0.5rem 0;
 
     span {
-      background-color: rgb(65, 65, 65);
-      color: white;
       padding: 0.2rem 0.4rem;
-      font-size: 12px;
-      border-radius: 4px;
-      font-weight: bold;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
       letter-spacing: 0.5px;
+      background: #ffffff;
+      border: 1px solid rgba(41, 41, 41, 0.25);
+      border-radius: 4px;
     }
   }
 }
@@ -213,7 +241,7 @@ form {
   -webkit-mask: linear-gradient(to right, (#0000, #000 0% 98%, #0000));
 }
 
-// *********** MOVIES / TV-SHOWS SSEARCHED ***********
+// *********** MOVIES / TV-SHOWS SEARCHED ***********
 
 .searched-movies {
   display: grid;
@@ -226,7 +254,10 @@ form {
   }
 }
 
-.searched {
+.searched,
+.action,
+.romance,
+.documentary {
   display: none;
 }
 
@@ -270,12 +301,26 @@ form {
         }
 
         .score {
-          background-color: greenyellow;
           padding: 0.4rem 0.5rem;
           border-radius: 5px;
           width: 40px;
           height: auto;
           text-align: center;
+        }
+
+        .green {
+          background: #dbffe3;
+          border: 2px solid #4bfb72;
+        }
+
+        .yellow {
+          background: #fff1ce;
+          border: 2px solid #fbca4b;
+        }
+
+        .red {
+          background: #ffdeda;
+          border: 2px solid #fb604b;
         }
       }
     }
@@ -354,8 +399,9 @@ form {
     left: 0;
     z-index: 100;
     border-radius: 10px;
-    color: white;
     overflow-y: scroll;
+    color: #292929;
+    opacity: 0.95;
 
     h2 {
       font-size: 32px;
@@ -378,9 +424,9 @@ form {
 
     .release {
       padding-bottom: 1.5rem;
+      font-weight: 700;
       span {
         font-size: 14px;
-        font-weight: 400;
         opacity: 0.8;
       }
 
@@ -420,7 +466,7 @@ form {
       .actors {
         display: flex;
         justify-content: space-between;
-        gap: 1rem;
+        gap: 1.5rem;
 
         .actor {
           max-width: 100px;
