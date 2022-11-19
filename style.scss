@@ -1,9 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,700;1,500,800,900&display=swap");
 
-@mixin card-gradient {
+@mixin card-style {
   background: #f2f2f2;
   border: 1px solid rgba(41, 41, 41, 0.1);
   border-radius: 8px;
+}
+
+.green {
+  background: #dbffe3;
+  border: 2px solid #4bfb72;
+}
+
+.yellow {
+  background: #fff1ce;
+  border: 2px solid #fbca4b;
+}
+
+.red {
+  background: #ffdeda;
+  border: 2px solid #fb604b;
 }
 
 // *********** CUSTOM SCROLLBAR ***********
@@ -14,6 +29,7 @@
 
 *::-webkit-scrollbar-track {
   background-color: rgb(224, 224, 224);
+  border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -92,7 +108,7 @@ form {
   justify-content: center;
   border-radius: 50px;
   padding: 0 0.2rem;
-  border: 1px solid rgba(71, 71, 71, 0.8);
+  border: 1px solid rgba(41, 41, 41, 0.1);
   width: 50%;
 
   input {
@@ -106,7 +122,7 @@ form {
   }
 
   button {
-    @include card-gradient;
+    @include card-style;
     border: none;
     border-radius: 50px;
     width: 35px;
@@ -132,6 +148,7 @@ form {
     background: #ffffff;
     border: 1px solid rgba(41, 41, 41, 0.25);
     border-radius: 4px;
+    color: #292929;
     cursor: pointer;
   }
 }
@@ -151,7 +168,7 @@ form {
 }
 
 .movie {
-  @include card-gradient;
+  @include card-style;
   padding: 1.1rem;
   border-radius: 10px;
   width: 245px;
@@ -175,12 +192,17 @@ form {
     display: flex;
     align-items: flex-start;
     padding: 0.5rem 0;
-    height: 70px;
+    height: 65px;
     position: relative;
 
     h3 {
-      font-size: 18px;
+      font-size: 16px;
       padding-top: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .rating {
@@ -195,27 +217,14 @@ form {
       font-size: 18px;
       font-weight: 700;
       border-radius: 8px;
-
-      .green {
-        background: #dbffe3;
-        border: 2px solid #4bfb72;
-      }
-
-      .yellow {
-        background: #fff1ce;
-        border: 2px solid #fbca4b;
-      }
-
-      .red {
-        background: #ffdeda;
-        border: 2px solid #fb604b;
-      }
     }
   }
 
   .release,
   .genre {
     padding: 0.5rem 0;
+    font-size: 14px;
+    cursor: default;
 
     span {
       padding: 0.2rem 0.4rem;
@@ -239,6 +248,7 @@ form {
   overflow: scroll;
   padding-right: 12px;
   -webkit-mask: linear-gradient(to right, (#0000, #000 0% 98%, #0000));
+  cursor: move; /* fallback if grab cursor is unsupported */
 }
 
 // *********** MOVIES / TV-SHOWS SEARCHED ***********
@@ -307,21 +317,6 @@ form {
           height: auto;
           text-align: center;
         }
-
-        .green {
-          background: #dbffe3;
-          border: 2px solid #4bfb72;
-        }
-
-        .yellow {
-          background: #fff1ce;
-          border: 2px solid #fbca4b;
-        }
-
-        .red {
-          background: #ffdeda;
-          border: 2px solid #fb604b;
-        }
       }
     }
   }
@@ -386,7 +381,7 @@ form {
   visibility: hidden;
 
   .modal-window {
-    @include card-gradient;
+    @include card-style;
     position: fixed;
     width: 80%;
     max-width: 1000px;
@@ -401,7 +396,6 @@ form {
     border-radius: 10px;
     overflow-y: scroll;
     color: #292929;
-    opacity: 0.95;
 
     h2 {
       font-size: 32px;
@@ -424,7 +418,7 @@ form {
 
     .release {
       padding-bottom: 1.5rem;
-      font-weight: 700;
+
       span {
         font-size: 14px;
         opacity: 0.8;
@@ -705,7 +699,10 @@ h4 {
   // ******** SEARCHED MOVIES / TV SHOWs********
 
   .searched-movies {
-    grid-gap: 2rem;
-    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
   }
 }

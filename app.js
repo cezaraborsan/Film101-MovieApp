@@ -206,9 +206,7 @@ async function getUpcomingMovies() {
   }
 }
 
-// *********** GET UPCOMING MOVIES AND ADD THEM TO THE PAGE AND HIDE THE OTHER SECTIONS ***********
-
-const reload = document.querySelector("#loader");
+// *********** GET SEARCHED MOVIES ***********
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -278,22 +276,22 @@ async function getMoviesBySearch(searchInput) {
     }
    
     <div class="movie-details">
-    ${
-      title
-        ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
-        : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
-    } 
-      <div class="rating ${getClassByRate(vote_average)}" >
-        ${
-          vote_average
-            ? `<span class = ' rating ${getClassByRate(
-                vote_average
-              )}'>${vote_average.toFixed(1)}</span>`
-            : `<span class = '${getClassByRate(
-                vote_average
-              )} rating'>0.0</span>`
-        }
-      </div>
+      ${
+        title
+          ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
+          : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
+      } 
+        <div class="rating" >
+          ${
+            vote_average
+              ? `<span class = ' rating ${getClassByRate(
+                  vote_average
+                )}'>${vote_average.toFixed(1)}</span>`
+              : `<span class = '${getClassByRate(
+                  vote_average
+                )} rating'>0.0</span>`
+          }
+        </div>
     </div>
     <p class="genre">
       ${gen ? `<span> ${gen.name}</span>` : ``}
@@ -307,7 +305,7 @@ async function getMoviesBySearch(searchInput) {
   }
 }
 
-//********** GET ACTION MOVIES *******************
+//********** GET MOVIES BY CATEGORY *******************
 
 const actionBtn = document.querySelector(".action-button");
 const actionMovies = document.querySelector(".action-movies");
@@ -394,7 +392,7 @@ async function getActionMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating ${getClassByRate(vote_average)}" >
+      <div class="rating" >
         ${
           vote_average
             ? `<span class = ' rating ${getClassByRate(
@@ -464,7 +462,7 @@ async function getRomanceMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating ${getClassByRate(vote_average)}" >
+      <div class="rating" >
         ${
           vote_average
             ? `<span class = ' rating ${getClassByRate(
@@ -534,7 +532,7 @@ async function getDocumentaryMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating ${getClassByRate(vote_average)}" >
+      <div class="rating" >
         ${
           vote_average
             ? `<span class = ' rating ${getClassByRate(
@@ -730,6 +728,30 @@ topTVModalOpen.addEventListener("click", (e) => {
 });
 
 upcomingMoviesModalOpen.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("movie-title") ||
+    e.target.classList.contains("poster")
+  )
+    getMovie();
+});
+
+actionMovies.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("movie-title") ||
+    e.target.classList.contains("poster")
+  )
+    getMovie();
+});
+
+romanceMovies.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("movie-title") ||
+    e.target.classList.contains("poster")
+  )
+    getMovie();
+});
+
+documentaryMovies.addEventListener("click", (e) => {
   if (
     e.target.classList.contains("movie-title") ||
     e.target.classList.contains("poster")
