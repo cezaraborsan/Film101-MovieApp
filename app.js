@@ -33,7 +33,6 @@ const modalWindow = document.querySelector(".modal-window");
 const today = new Date().toISOString().slice(0, 10);
 
 // *********** API URL ***********
-
 const MY_API_KEY = config.key;
 const popularMovies_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${MY_API_KEY}&page=1`;
 const popularTV_URL = `https://api.themoviedb.org/3/trending/tv/week?api_key=${MY_API_KEY}&page=1`;
