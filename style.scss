@@ -6,6 +6,10 @@
   border-radius: 8px;
 }
 
+$title-color: #292929;
+
+// *********** RATING COLORS ***********
+
 .green {
   background: #dbffe3;
   border: 2px solid #4bfb72;
@@ -19,6 +23,11 @@
 .red {
   background: #ffdeda;
   border: 2px solid #fb604b;
+}
+
+.gray {
+  background: rgb(219, 219, 219);
+  border: 2px solid #505050;
 }
 
 // *********** CUSTOM SCROLLBAR ***********
@@ -71,8 +80,7 @@ ul {
 
 h1 {
   font-size: 28px;
-  color: black;
-
+  color: $title-color;
   span {
     opacity: 0.5;
   }
@@ -80,6 +88,7 @@ h1 {
 
 h2 {
   padding: 2.5rem 0 1.5rem;
+  color: $title-color;
 
   &::before {
     content: "|";
@@ -148,7 +157,7 @@ form {
     background: #ffffff;
     border: 1px solid rgba(41, 41, 41, 0.25);
     border-radius: 4px;
-    color: #292929;
+    color: $title-color;
     cursor: pointer;
   }
 }
@@ -160,7 +169,7 @@ form {
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
   overflow: scroll;
-  color: #292929;
+  color: $title-color;
 }
 
 .movies-container::-webkit-scrollbar {
@@ -208,12 +217,16 @@ form {
     .rating {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.2rem;
+      width: 2.5rem;
+      height: 2.1rem;
       font-weight: bold;
       position: absolute;
-      top: -28%;
-      left: 37%;
-      padding: 6px;
+      top: -20%;
+      left: 0;
+      right: 0;
+      transform: translateX(100%);
       font-size: 18px;
       font-weight: 700;
       border-radius: 8px;
@@ -248,12 +261,15 @@ form {
   overflow: scroll;
   padding-right: 12px;
   -webkit-mask: linear-gradient(to right, (#0000, #000 0% 98%, #0000));
-  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: move;
 }
 
 // *********** MOVIES / TV-SHOWS SEARCHED ***********
 
-.searched-movies {
+.searched-movies,
+.action-movies,
+.romance-movies,
+.documentary-movies {
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: repeat(4, 1fr);
@@ -294,6 +310,7 @@ form {
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 0.5rem;
+        color: $title-color;
 
         a {
           display: flex;
@@ -360,7 +377,7 @@ form {
     flex-wrap: wrap;
     justify-content: space-between;
     a {
-      color: #000;
+      color: $title-color;
     }
 
     li {
@@ -395,8 +412,7 @@ form {
     z-index: 100;
     border-radius: 10px;
     overflow-y: scroll;
-    color: #292929;
-
+    color: $title-color;
     h2 {
       font-size: 32px;
       padding-block: 0.2rem;
@@ -511,7 +527,7 @@ form {
 // *********** FOOTER  ***********
 
 footer {
-  background-color: #474747;
+  background-color: $title-color;
   margin-top: 3rem;
 }
 
@@ -590,7 +606,10 @@ h4 {
 
   // ******** SEARCHED MOVIES / TV SHOWs********
 
-  .searched-movies {
+  .searched-movies,
+  .action-movies,
+  .romance-movies,
+  .documentary-movies {
     grid-gap: 2rem;
     grid-template-columns: repeat(3, 1fr);
   }
@@ -646,7 +665,10 @@ h4 {
 
   // ******** SEARCHED MOVIES / TV SHOWs********
 
-  .searched-movies {
+  .searched-movies,
+  .action-movies,
+  .romance-movies,
+  .documentary-movies {
     grid-gap: 2rem;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -698,7 +720,10 @@ h4 {
 @media (max-width: 580px) {
   // ******** SEARCHED MOVIES / TV SHOWs********
 
-  .searched-movies {
+  .searched-movies,
+  .action-movies,
+  .romance-movies,
+  .documentary-movies {
     display: flex;
     flex-direction: column;
     justify-content: center;

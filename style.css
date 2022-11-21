@@ -14,6 +14,11 @@
   border: 2px solid #fb604b;
 }
 
+.gray {
+  background: #dbdbdb;
+  border: 2px solid #505050;
+}
+
 *::-webkit-scrollbar {
   width: 10px;
 }
@@ -62,7 +67,7 @@ ul {
 
 h1 {
   font-size: 28px;
-  color: black;
+  color: #292929;
 }
 
 h1 span {
@@ -71,6 +76,7 @@ h1 span {
 
 h2 {
   padding: 2.5rem 0 1.5rem;
+  color: #292929;
 }
 
 h2::before {
@@ -222,12 +228,19 @@ form button img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 0.2rem;
+  width: 2.5rem;
+  height: 2.1rem;
   font-weight: bold;
   position: absolute;
-  top: -28%;
-  left: 37%;
-  padding: 6px;
+  top: -20%;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
   font-size: 18px;
   font-weight: 700;
   border-radius: 8px;
@@ -267,10 +280,12 @@ form button img {
   -webkit-mask: -webkit-gradient(linear, left top, right top, from(#0000), color-stop(0%, #000), to(#0000));
   -webkit-mask: linear-gradient(to right, #0000, #000 0% 98%, #0000);
   cursor: move;
-  /* fallback if grab cursor is unsupported */
 }
 
-.searched-movies {
+.searched-movies,
+.action-movies,
+.romance-movies,
+.documentary-movies {
   display: -ms-grid;
   display: grid;
   grid-gap: 2rem;
@@ -279,7 +294,10 @@ form button img {
   overflow: hidden;
 }
 
-.searched-movies .media-type {
+.searched-movies .media-type,
+.action-movies .media-type,
+.romance-movies .media-type,
+.documentary-movies .media-type {
   display: none;
 }
 
@@ -322,6 +340,7 @@ form button img {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: #292929;
 }
 
 .top-rated .top-rated-lists ul .top-rated-item a {
@@ -395,7 +414,7 @@ form button img {
 }
 
 .top-news .top-news-articles a {
-  color: #000;
+  color: #292929;
 }
 
 .top-news .top-news-articles li {
@@ -543,7 +562,7 @@ form button img {
 }
 
 footer {
-  background-color: #474747;
+  background-color: #292929;
   margin-top: 3rem;
 }
 
@@ -625,7 +644,10 @@ h4 {
   .top-news .top-news-articles {
     gap: 1.5rem;
   }
-  .searched-movies {
+  .searched-movies,
+  .action-movies,
+  .romance-movies,
+  .documentary-movies {
     grid-gap: 2rem;
     -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
@@ -675,7 +697,10 @@ h4 {
     text-transform: capitalize;
     opacity: 0.8;
   }
-  .searched-movies {
+  .searched-movies,
+  .action-movies,
+  .romance-movies,
+  .documentary-movies {
     grid-gap: 2rem;
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
@@ -721,7 +746,10 @@ h4 {
 }
 
 @media (max-width: 580px) {
-  .searched-movies {
+  .searched-movies,
+  .action-movies,
+  .romance-movies,
+  .documentary-movies {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

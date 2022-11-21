@@ -5,8 +5,32 @@ const searchedMoviesContainer = document.querySelector(".searched-movies");
 const upcomingMoviesContainer = document.querySelector(".upcoming-movies");
 const popularTVContainer = document.querySelector(".popular-tv");
 const standardMovies = document.querySelector(".standard-movies");
-const searchedMovies = document.querySelector(".searched");
+const searchedMovies = document.querySelector(".searched-items");
 const topNewsContainer = document.querySelector(".top-news");
+
+const actionBtn = document.querySelector(".action-button");
+const actionMovies = document.querySelector(".action-movies");
+const actionMoviesContainer = document.querySelector(".action");
+
+const romanceBtn = document.querySelector(".romance-button");
+const romanceMovies = document.querySelector(".romance-movies");
+const romanceMoviesContainer = document.querySelector(".romance");
+
+const documentaryBtn = document.querySelector(".documentary-button");
+const documentaryMovies = document.querySelector(".documentary-movies");
+const documentaryMoviesContainer = document.querySelector(".documentary");
+
+const topRatedMoviesList = document.querySelector(".top-rated-movies");
+const topRatedTVList = document.querySelector(".top-rated-tv-shows");
+const tvOnTheAir = document.querySelector(".tv-on-the-air");
+
+const topPeopleContainer = document.querySelector(".top-people");
+const topPeopleList = document.querySelector(".top-people-list");
+
+const modalWindowContainer = document.querySelector(".modal-window-container");
+const overlay = document.getElementById("overlay");
+const modalWindow = document.querySelector(".modal-window");
+const today = new Date().toISOString().slice(0, 10);
 
 // *********** API URL ***********
 
@@ -134,7 +158,8 @@ async function getPopularTV() {
     popularTVContainer.innerHTML = "";
 
     results.forEach((movie) => {
-      const { name, poster_path, first_air_date, genre_ids, id } = movie;
+      const { name, poster_path, first_air_date, genre_ids, id, vote_average } =
+        movie;
       const movieRating = movie.vote_average.toFixed(1);
 
       const gen = genresListTV.find((gen) => gen.id === genre_ids[0]);
@@ -148,11 +173,22 @@ async function getPopularTV() {
       }"/><a/>
       <div class="movie-details">
       <a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3><a/>
-        <div class="rating">
-          <span class='${getClassByRate(
-            movieRating
-          )} rating'>${movieRating}</span>
-        </div>
+      <div class="rating">
+      ${
+        vote_average
+          ? `<span class = ' rating ${getClassByRate(
+              vote_average,
+              first_air_date
+            )}'>${vote_average.toFixed(1)}</span>`
+          : `<span class = '${getClassByRate(
+              vote_average,
+              first_air_date
+            )} rating'>${noRatingIfNotReleased(
+              first_air_date,
+              vote_average
+            )}</span>`
+      }
+      </div>
       </div>
       <p class="genre">
           ${gen ? `<span> ${gen.name}</span>` : ``}
@@ -177,8 +213,7 @@ async function getUpcomingMovies() {
     upcomingMoviesContainer.innerHTML = "";
 
     results.forEach((movie) => {
-      const { title, poster_path, release_date, id } = movie;
-      const movieRating = movie.vote_average.toFixed(1);
+      const { title, poster_path, release_date, id, vote_average } = movie;
 
       const movieEl = document.createElement("div");
       movieEl.classList.add("movie");
@@ -189,9 +224,20 @@ async function getUpcomingMovies() {
     <div class="movie-details">
     <a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3><a/>
       <div class="rating">
-        <span class='${getClassByRate(
-          movieRating
-        )} rating'>${movieRating}</span>
+      ${
+        vote_average
+          ? `<span class = ' rating ${getClassByRate(
+              vote_average,
+              release_date
+            )}'>${vote_average.toFixed(1)}</span>`
+          : `<span class = '${getClassByRate(
+              vote_average,
+              release_date
+            )} rating'>${noRatingIfNotReleased(
+              release_date,
+              vote_average
+            )}</span>`
+      }
       </div>
     </div>
     <p class="release">
@@ -224,9 +270,12 @@ function searchMovie() {
   const searchTerm = search.value;
 
   if (searchTerm && searchTerm !== "") {
-    standardMovies.style.display = "none";
     searchedMovies.style.display = "block";
+    standardMovies.style.display = "none";
     topNewsContainer.style.display = "none";
+    romanceMoviesContainer.style.display = "none";
+    actionMoviesContainer.style.display = "none";
+    documentaryMoviesContainer.style.display = "none";
     getMoviesBySearch(searchTerm);
 
     search.value = "";
@@ -259,11 +308,13 @@ async function getMoviesBySearch(searchInput) {
         name,
         id,
         media_type,
+        release_date,
+        first_air_date,
       } = movie;
 
       const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
       const gen1 = genresListMovies.find((gen1) => gen1.id === genre_ids[1]);
-
+      const releaseDate = `${release_date ? release_date : first_air_date}`;
       const movieEl = document.createElement("div");
       movieEl.classList.add("movie");
       movieEl.innerHTML = `
@@ -281,17 +332,22 @@ async function getMoviesBySearch(searchInput) {
           ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
           : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
       } 
-        <div class="rating" >
-          ${
-            vote_average
-              ? `<span class = ' rating ${getClassByRate(
-                  vote_average
-                )}'>${vote_average.toFixed(1)}</span>`
-              : `<span class = '${getClassByRate(
-                  vote_average
-                )} rating'>0.0</span>`
-          }
-        </div>
+      <div class="rating">
+      ${
+        vote_average
+          ? `<span class = ' rating ${getClassByRate(
+              vote_average,
+              releaseDate
+            )}'>${vote_average.toFixed(1)}</span>`
+          : `<span class = '${getClassByRate(
+              vote_average,
+              releaseDate
+            )} rating'>${noRatingIfNotReleased(
+              releaseDate,
+              vote_average
+            )}</span>`
+      }   
+      </div>
     </div>
     <p class="genre">
       ${gen ? `<span> ${gen.name}</span>` : ``}
@@ -306,18 +362,6 @@ async function getMoviesBySearch(searchInput) {
 }
 
 //********** GET MOVIES BY CATEGORY *******************
-
-const actionBtn = document.querySelector(".action-button");
-const actionMovies = document.querySelector(".action-movies");
-const actionMoviesContainer = document.querySelector(".action");
-
-const romanceBtn = document.querySelector(".romance-button");
-const romanceMovies = document.querySelector(".romance-movies");
-const romanceMoviesContainer = document.querySelector(".romance");
-
-const documentaryBtn = document.querySelector(".documentary-button");
-const documentaryMovies = document.querySelector(".documentary-movies");
-const documentaryMoviesContainer = document.querySelector(".documentary");
 
 actionBtn.addEventListener("click", () => {
   getActionMovies();
@@ -370,6 +414,7 @@ async function getActionMovies() {
         name,
         id,
         media_type,
+        release_date,
       } = movie;
 
       const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
@@ -392,17 +437,22 @@ async function getActionMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating" >
-        ${
-          vote_average
-            ? `<span class = ' rating ${getClassByRate(
-                vote_average
-              )}'>${vote_average.toFixed(1)}</span>`
-            : `<span class = '${getClassByRate(
-                vote_average
-              )} rating'>0.0</span>`
-        }
-      </div>
+    <div class="rating">
+    ${
+      vote_average
+        ? `<span class = ' rating ${getClassByRate(
+            vote_average,
+            release_date
+          )}'>${vote_average.toFixed(1)}</span>`
+        : `<span class = '${getClassByRate(
+            vote_average,
+            release_date
+          )} rating'>${noRatingIfNotReleased(
+            release_date,
+            vote_average
+          )}</span>`
+    }
+    </div>
     </div>
     <p class="genre">
       ${gen ? `<span> ${gen.name}</span>` : ``}
@@ -440,6 +490,7 @@ async function getRomanceMovies() {
         name,
         id,
         media_type,
+        release_date,
       } = movie;
 
       const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
@@ -462,17 +513,22 @@ async function getRomanceMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating" >
-        ${
-          vote_average
-            ? `<span class = ' rating ${getClassByRate(
-                vote_average
-              )}'>${vote_average.toFixed(1)}</span>`
-            : `<span class = '${getClassByRate(
-                vote_average
-              )} rating'>0.0</span>`
-        }
-      </div>
+    <div class="rating">
+    ${
+      vote_average
+        ? `<span class = ' rating ${getClassByRate(
+            vote_average,
+            release_date
+          )}'>${vote_average.toFixed(1)}</span>`
+        : `<span class = '${getClassByRate(
+            vote_average,
+            release_date
+          )} rating'>${noRatingIfNotReleased(
+            release_date,
+            vote_average
+          )}</span>`
+    }
+    </div>
     </div>
     <p class="genre">
       ${gen ? `<span> ${gen.name}</span>` : ``}
@@ -510,6 +566,7 @@ async function getDocumentaryMovies() {
         name,
         id,
         media_type,
+        release_date,
       } = movie;
 
       const gen = genresListMovies.find((gen) => gen.id === genre_ids[0]);
@@ -532,16 +589,21 @@ async function getDocumentaryMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating" >
-        ${
-          vote_average
-            ? `<span class = ' rating ${getClassByRate(
-                vote_average
-              )}'>${vote_average.toFixed(1)}</span>`
-            : `<span class = '${getClassByRate(
-                vote_average
-              )} rating'>0.0</span>`
-        }
+      <div class="rating">
+      ${
+        vote_average
+          ? `<span class = ' rating ${getClassByRate(
+              vote_average,
+              release_date
+            )}'>${vote_average.toFixed(1)}</span>`
+          : `<span class = '${getClassByRate(
+              vote_average,
+              release_date
+            )} rating'>${noRatingIfNotReleased(
+              release_date,
+              vote_average
+            )}</span>`
+      }
       </div>
     </div>
     <p class="genre">
@@ -557,10 +619,6 @@ async function getDocumentaryMovies() {
 }
 
 // *********** TOP RATED MOVIES AND TV SHOWS SECTIONS ***********
-
-const topRatedMoviesList = document.querySelector(".top-rated-movies");
-const topRatedTVList = document.querySelector(".top-rated-tv-shows");
-const tvOnTheAir = document.querySelector(".tv-on-the-air");
 
 // *********** GET TOP RATED MOVIES AND ADD THEM TO THE PAGE ***********
 
@@ -652,9 +710,6 @@ async function getTVOnTheAir() {
 
 // //GET POPULAR PEOPLE AND ADD THEM TO THE PAGE
 
-const topPeopleContainer = document.querySelector(".top-people");
-const topPeopleList = document.querySelector(".top-people-list");
-
 async function getTopPeople() {
   try {
     const response = await axios.get(popularPeople_URL);
@@ -680,38 +735,26 @@ async function getTopPeople() {
 
 // ***************** MODAL WINDOW ******************
 
-const movieWindowContainer = document.querySelector(".modal-window-container");
-const topMoviesModalOpen = document.querySelector(".popular-movies");
-const topTVModalOpen = document.querySelector(".popular-tv");
-const upcomingMoviesModalOpen = document.querySelector(".upcoming-movies");
-const searchedItemModalOpen = document.querySelector(".searched-movies");
-const overlay = document.getElementById("overlay");
-const loader = document.getElementById("loader");
-const modalWindow = document.querySelector(".modal-window");
-const topRatedMoviesOpenModal = document.querySelector(".top-rated-movies");
-const topRatedTVOpenModal = document.querySelector(".top-rated-tv-shows");
-const tvOnAirOpenModal = document.querySelector(".tv-on-the-air");
-
 // ***************** OPEN MODAL WINDOW ******************
-topRatedMoviesOpenModal.addEventListener("click", (e) => {
+topRatedMoviesList.addEventListener("click", (e) => {
   if (e.target.classList.contains("item-title")) {
     getMovie();
   }
 });
 
-topRatedTVOpenModal.addEventListener("click", (e) => {
+topRatedTVList.addEventListener("click", (e) => {
   if (e.target.classList.contains("item-title")) {
     getTVShow();
   }
 });
 
-tvOnAirOpenModal.addEventListener("click", (e) => {
+tvOnTheAir.addEventListener("click", (e) => {
   if (e.target.classList.contains("item-title")) {
     getTVShow();
   }
 });
 
-topMoviesModalOpen.addEventListener("click", (e) => {
+popularMoviesContainer.addEventListener("click", (e) => {
   if (
     e.target.classList.contains("movie-title") ||
     e.target.classList.contains("poster")
@@ -719,7 +762,7 @@ topMoviesModalOpen.addEventListener("click", (e) => {
     getMovie();
 });
 
-topTVModalOpen.addEventListener("click", (e) => {
+popularTVContainer.addEventListener("click", (e) => {
   if (
     e.target.classList.contains("movie-title") ||
     e.target.classList.contains("poster")
@@ -727,7 +770,7 @@ topTVModalOpen.addEventListener("click", (e) => {
     getTVShow();
 });
 
-upcomingMoviesModalOpen.addEventListener("click", (e) => {
+upcomingMoviesContainer.addEventListener("click", (e) => {
   if (
     e.target.classList.contains("movie-title") ||
     e.target.classList.contains("poster")
@@ -759,7 +802,7 @@ documentaryMovies.addEventListener("click", (e) => {
     getMovie();
 });
 
-searchedItemModalOpen.addEventListener("click", (e) => {
+searchedMoviesContainer.addEventListener("click", (e) => {
   if (
     e.target.nextElementSibling.innerHTML === "tv" &&
     (e.target.classList.contains("movie-title") ||
@@ -778,7 +821,7 @@ function movieSelected(id) {
 }
 
 async function getMovie() {
-  movieWindowContainer.classList.add("show");
+  modalWindowContainer.classList.add("show");
   overlay.style.display = "block";
   let movieID = sessionStorage.getItem("movieID");
 
@@ -790,8 +833,9 @@ async function getMovie() {
 
     const rating = results.vote_average.toFixed(1);
     const gen = results.genres.splice(0, 2);
+    const releaseDate = results.release_date;
 
-    movieWindowContainer.innerHTML = "";
+    modalWindowContainer.innerHTML = "";
 
     const movieEl = document.createElement("div");
     movieEl.classList.add("modal-window");
@@ -813,12 +857,15 @@ async function getMovie() {
             ${gen[1] ? `<span> ${gen[1].name}</span>` : ``}
           </p>
           <p class='rating'>
-          Raiting: 
-            ${
-              rating
-                ? `<span> ${rating} / 10</span>`
-                : `<span> ${0.0} / 10</span>`
-            }
+          Rating: 
+          ${
+            rating
+              ? `<span class = 'rating'>${rating} / 10</span>`
+              : `<span class = 'rating'>${noRatingIfNotReleased(
+                  releaseDate,
+                  rating
+                )}</span>`
+          }
           </p>
         </div>
       </div>
@@ -828,7 +875,7 @@ async function getMovie() {
       </div> 
       `;
 
-    movieWindowContainer.appendChild(movieEl);
+    modalWindowContainer.appendChild(movieEl);
 
     try {
       const response2 = await axios.get(
@@ -863,7 +910,7 @@ async function getMovie() {
 //**************** MODAL WINDOW FOR TV SHOW ******************/
 
 async function getTVShow() {
-  movieWindowContainer.classList.add("show");
+  modalWindowContainer.classList.add("show");
   overlay.style.display = "block";
   let tvShowID = sessionStorage.getItem("movieID");
 
@@ -876,8 +923,9 @@ async function getTVShow() {
 
     const rating = results.vote_average.toFixed(1);
     const gen = results.genres.splice(0, 2);
+    const releaseDate = results.first_air_date;
 
-    movieWindowContainer.innerHTML = "";
+    modalWindowContainer.innerHTML = "";
 
     const tvShowEl = document.createElement("div");
     tvShowEl.classList.add("modal-window");
@@ -904,12 +952,15 @@ async function getTVShow() {
             ${gen[1] ? `<span> ${gen[1].name}</span>` : ``}
           </p>
           <p class='rating'>
-          Raiting: 
-            ${
-              rating
-                ? `<span> ${rating} / 10</span>`
-                : `<span> ${0.0} / 10</span>`
-            }     
+          Rating: 
+          ${
+            rating
+              ? `<span class = 'rating'>${rating} / 10</span>`
+              : `<span rating'>${noRatingIfNotReleased(
+                  releaseDate,
+                  rating
+                )}</span>`
+          }     
           </p>
           <p class='seasons'>
           Season(s): 
@@ -927,7 +978,7 @@ async function getTVShow() {
       </div> 
       `;
 
-    movieWindowContainer.appendChild(tvShowEl);
+    modalWindowContainer.appendChild(tvShowEl);
 
     try {
       const response2 = await axios.get(
@@ -986,12 +1037,12 @@ async function getTVShow() {
 const closeModal = document.querySelector(".close-modal");
 
 function closeModalWindow() {
-  movieWindowContainer.classList.remove("show");
+  modalWindowContainer.classList.remove("show");
   overlay.style.display = "none";
 }
 
 function hideModal() {
-  movieWindowContainer.classList.remove("show");
+  modalWindowContainer.classList.remove("show");
   overlay.style.display = "none";
 }
 
@@ -1023,12 +1074,22 @@ sliders.forEach((slider) => {
   });
 });
 
-function getClassByRate(movieRating) {
+function getClassByRate(movieRating, release_date) {
   if (movieRating >= 8) {
     return "green";
   } else if (movieRating >= 5) {
     return "yellow";
+  } else if (movieRating === 0 && release_date > today) {
+    return "gray";
   } else {
     return "red";
+  }
+}
+
+function noRatingIfNotReleased(releaseDate, vote_average) {
+  if (releaseDate > today && vote_average === 0) {
+    return "n/a";
+  } else {
+    return "0.0";
   }
 }
