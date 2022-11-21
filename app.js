@@ -34,7 +34,7 @@ const today = new Date().toISOString().slice(0, 10);
 
 // *********** API URL ***********
 
-const MY_API_KEY = "494c8f2f1b18f570d713941a3eec2c7b";
+const MY_API_KEY = config.key;
 const popularMovies_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${MY_API_KEY}&page=1`;
 const popularTV_URL = `https://api.themoviedb.org/3/trending/tv/week?api_key=${MY_API_KEY}&page=1`;
 const upcomingMovies_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${MY_API_KEY}&language=en-US&page=1`;
@@ -157,17 +157,17 @@ async function getPopularTV() {
 
     popularTVContainer.innerHTML = "";
 
-    results.forEach((movie) => {
+    results.forEach((tvShow) => {
       const { name, poster_path, first_air_date, genre_ids, id, vote_average } =
-        movie;
-      const movieRating = movie.vote_average.toFixed(1);
+        tvShow;
+      const tvShowRating = tvShow.vote_average.toFixed(1);
 
       const gen = genresListTV.find((gen) => gen.id === genre_ids[0]);
       const gen1 = genresListTV.find((gen1) => gen1.id === genre_ids[1]);
 
-      const movieEl = document.createElement("div");
-      movieEl.classList.add("movie");
-      movieEl.innerHTML = `
+      const tvShowEl = document.createElement("div");
+      tvShowEl.classList.add("movie");
+      tvShowEl.innerHTML = `
       <a onclick="movieSelected('${id}')"><img class="poster"src="${
         posterPath + poster_path
       }"/><a/>
@@ -195,7 +195,7 @@ async function getPopularTV() {
           ${gen1 ? `<span> ${gen1.name}</span>` : ``}
       </p>`;
 
-      popularTVContainer.appendChild(movieEl);
+      popularTVContainer.appendChild(tvShowEl);
     });
   } catch (err) {
     console.log("ERROR!!" + err);
@@ -226,7 +226,7 @@ async function getUpcomingMovies() {
       <div class="rating">
       ${
         vote_average
-          ? `<span class = ' rating ${getClassByRate(
+          ? `<span class = 'rating ${getClassByRate(
               vote_average,
               release_date
             )}'>${vote_average.toFixed(1)}</span>`
@@ -516,7 +516,7 @@ async function getRomanceMovies() {
     <div class="rating">
     ${
       vote_average
-        ? `<span class = ' rating ${getClassByRate(
+        ? `<span class = 'rating ${getClassByRate(
             vote_average,
             release_date
           )}'>${vote_average.toFixed(1)}</span>`
@@ -589,22 +589,22 @@ async function getDocumentaryMovies() {
         ? `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${title}</h3> <span class='media-type'>${media_type}</span><a/>`
         : `<a onclick="movieSelected('${id}')"><h3 class="movie-title">${name}</h3> <span class='media-type'>${media_type}</span><a/>`
     } 
-      <div class="rating">
-      ${
-        vote_average
-          ? `<span class = ' rating ${getClassByRate(
-              vote_average,
-              release_date
-            )}'>${vote_average.toFixed(1)}</span>`
-          : `<span class = '${getClassByRate(
-              vote_average,
-              release_date
-            )} rating'>${noRatingIfNotReleased(
-              release_date,
-              vote_average
-            )}</span>`
-      }
-      </div>
+    <div class="rating">
+    ${
+      vote_average
+        ? `<span class = 'rating ${getClassByRate(
+            vote_average,
+            release_date
+          )}'>${vote_average.toFixed(1)}</span>`
+        : `<span class = '${getClassByRate(
+            vote_average,
+            release_date
+          )} rating'>${noRatingIfNotReleased(
+            release_date,
+            vote_average
+          )}</span>`
+    }
+    </div>
     </div>
     <p class="genre">
       ${gen ? `<span> ${gen.name}</span>` : ``}
@@ -659,20 +659,20 @@ async function getTopRatedTV() {
 
     topRatedTVList.innerHTML = "";
 
-    results.forEach((movie) => {
-      const { name, overview, vote_average, first_air_date, id } = movie;
-      const movieRating = movie.vote_average.toFixed(1);
-      const airDate = movie.first_air_date.slice(0, 4);
+    results.forEach((tvShow) => {
+      const { name, overview, vote_average, first_air_date, id } = tvShow;
+      const tvShowRating = tvShow.vote_average.toFixed(1);
+      const airDate = tvShow.first_air_date.slice(0, 4);
 
-      const movieEl = document.createElement("li");
-      movieEl.classList.add("top-rated-item");
-      movieEl.innerHTML = `
+      const tvShowEl = document.createElement("li");
+      tvShowEl.classList.add("top-rated-item");
+      tvShowEl.innerHTML = `
         <a class='item-title' onclick="movieSelected('${id}')">${name}
         <span class="top-rated-release-date">${airDate}</span></a>
         <span class="score ${getClassByRate(
-          movieRating
-        )}">${movieRating}</span>`;
-      topRatedTVList.appendChild(movieEl);
+          tvShowRating
+        )}">${tvShowRating}</span>`;
+      topRatedTVList.appendChild(tvShowEl);
     });
   } catch (err) {
     console.log("ERROR!" + err);
@@ -689,19 +689,21 @@ async function getTVOnTheAir() {
 
     topRatedTVList.innerHTML = "";
 
-    results.forEach((movie) => {
-      const { name, overview, vote_average, first_air_date, id } = movie;
-      const movieRating = movie.vote_average.toFixed(1);
-      const airDate = movie.first_air_date.slice(0, 4);
+    results.forEach((tvShow) => {
+      const { name, overview, vote_average, first_air_date, id } = tvShow;
+      const tvShowRating = tvShow.vote_average.toFixed(1);
+      const airDate = tvShow.first_air_date.slice(0, 4);
 
-      const movieEl = document.createElement("li");
-      movieEl.classList.add("top-rated-item");
-      movieEl.innerHTML = `
+      const tvShowEl = document.createElement("li");
+      tvShowEl.classList.add("top-rated-item");
+      tvShowEl.innerHTML = `
         <a class='item-title' onclick="movieSelected('${id}')">${name}
         <span class="top-rated-release-date">${airDate}</span></a>
-        <span class="score ${getClassByRate(movieRating)}">${movieRating}</span>
+        <span class="score ${getClassByRate(
+          tvShowRating
+        )}">${tvShowRating}</span>
         `;
-      tvOnTheAir.appendChild(movieEl);
+      tvOnTheAir.appendChild(tvShowEl);
     });
   } catch (err) {
     console.log("ERROR!" + err);
@@ -721,12 +723,12 @@ async function getTopPeople() {
     results.forEach((person) => {
       const { name, profile_path } = person;
 
-      const peopleEl = document.createElement("li");
-      peopleEl.classList.add("top-people-item");
-      peopleEl.innerHTML = `
+      const personEl = document.createElement("li");
+      personEl.classList.add("top-people-item");
+      personEl.innerHTML = `
         <img class="profile-pic" src="${posterPath + profile_path}"/>
         <span class="movie-title">${name}</span>`;
-      topPeopleList.appendChild(peopleEl);
+      topPeopleList.appendChild(personEl);
     });
   } catch (err) {
     console.log("ERROR!" + err);
@@ -736,6 +738,7 @@ async function getTopPeople() {
 // ***************** MODAL WINDOW ******************
 
 // ***************** OPEN MODAL WINDOW ******************
+
 topRatedMoviesList.addEventListener("click", (e) => {
   if (e.target.classList.contains("item-title")) {
     getMovie();
@@ -830,8 +833,8 @@ async function getMovie() {
       `https://api.themoviedb.org/3/movie/${movieID}?api_key=${MY_API_KEY}`
     );
     let results = response.data;
+    console.log(results);
 
-    const rating = results.vote_average.toFixed(1);
     const gen = results.genres.splice(0, 2);
     const releaseDate = results.release_date;
 
@@ -859,11 +862,13 @@ async function getMovie() {
           <p class='rating'>
           Rating: 
           ${
-            rating
-              ? `<span class = 'rating'>${rating} / 10</span>`
+            results.vote_average
+              ? `<span class = 'rating'>${results.vote_average.toFixed(
+                  1
+                )} / 10</span>`
               : `<span class = 'rating'>${noRatingIfNotReleased(
                   releaseDate,
-                  rating
+                  results.vote_average
                 )}</span>`
           }
           </p>
@@ -919,9 +924,7 @@ async function getTVShow() {
       `https://api.themoviedb.org/3/tv/${tvShowID}?api_key=${MY_API_KEY}&language=en-US`
     );
     let results = response.data;
-    console.log(results);
 
-    const rating = results.vote_average.toFixed(1);
     const gen = results.genres.splice(0, 2);
     const releaseDate = results.first_air_date;
 
@@ -954,13 +957,15 @@ async function getTVShow() {
           <p class='rating'>
           Rating: 
           ${
-            rating
-              ? `<span class = 'rating'>${rating} / 10</span>`
-              : `<span rating'>${noRatingIfNotReleased(
+            results.vote_average
+              ? `<span class = 'rating'>${results.vote_average.toFixed(
+                  1
+                )} / 10</span>`
+              : `<span class = 'rating'>${noRatingIfNotReleased(
                   releaseDate,
-                  rating
+                  results.vote_average
                 )}</span>`
-          }     
+          }
           </p>
           <p class='seasons'>
           Season(s): 
@@ -1087,7 +1092,10 @@ function getClassByRate(movieRating, release_date) {
 }
 
 function noRatingIfNotReleased(releaseDate, vote_average) {
-  if (releaseDate > today && vote_average === 0) {
+  if (
+    releaseDate > today &&
+    (vote_average === 0 || vote_average === "undefined")
+  ) {
     return "n/a";
   } else {
     return "0.0";
