@@ -1,3 +1,5 @@
+const MY_API_KEY = "494c8f2f1b18f570d713941a3eec2c7b";
+
 const form = document.querySelector(".form");
 const searchInput = document.querySelector(".search");
 const popularMoviesContainer = document.querySelector(".popular-movies");
@@ -33,7 +35,7 @@ const modalWindow = document.querySelector(".modal-window");
 const today = new Date().toISOString().slice(0, 10);
 
 // *********** API URL ***********
-const MY_API_KEY = config.key;
+
 const popularMovies_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${MY_API_KEY}&page=1`;
 const popularTV_URL = `https://api.themoviedb.org/3/trending/tv/week?api_key=${MY_API_KEY}&page=1`;
 const upcomingMovies_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${MY_API_KEY}&language=en-US&page=1`;
