@@ -30,6 +30,41 @@ $title-color: #292929;
   border: 2px solid #505050;
 }
 
+//loading
+
+#loading {
+  background-color: #fff;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s;
+
+  .loader {
+    width: 80px;
+    height: 80px;
+    border: 10px solid #505050;
+    border-color: #505050 transparent #505050 transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 // *********** CUSTOM SCROLLBAR ***********
 
 *::-webkit-scrollbar {
@@ -58,6 +93,7 @@ $title-color: #292929;
 body {
   font-family: "Albert Sans", sans-serif;
   font-size: 16px;
+  overflow-y: hidden;
 }
 
 .container {
@@ -403,6 +439,7 @@ form {
     width: 80%;
     max-width: 1000px;
     max-height: 80vh;
+    height: fit-content;
     padding: 2rem;
     margin: auto;
     top: 0;

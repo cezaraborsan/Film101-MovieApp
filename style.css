@@ -19,6 +19,62 @@
   border: 2px solid #505050;
 }
 
+#loading {
+  background-color: #fff;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+#loading .loader {
+  width: 80px;
+  height: 80px;
+  border: 10px solid #505050;
+  border-color: #505050 transparent #505050 transparent;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-animation: rotation 1s linear infinite;
+          animation: rotation 1s linear infinite;
+}
+
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 *::-webkit-scrollbar {
   width: 10px;
 }
@@ -45,6 +101,7 @@
 body {
   font-family: "Albert Sans", sans-serif;
   font-size: 16px;
+  overflow-y: hidden;
 }
 
 .container {
@@ -439,6 +496,9 @@ form button img {
   width: 80%;
   max-width: 1000px;
   max-height: 80vh;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   padding: 2rem;
   margin: auto;
   top: 0;

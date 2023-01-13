@@ -257,7 +257,6 @@ async function getUpcomingMovies() {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  searchMovie();
 });
 
 form.addEventListener("keypress", (e) => {
@@ -277,10 +276,12 @@ function searchMovie() {
     romanceMoviesContainer.style.display = "none";
     actionMoviesContainer.style.display = "none";
     documentaryMoviesContainer.style.display = "none";
+
     getMoviesBySearch(searchTerm);
 
     search.value = "";
   } else {
+    // reloads the current URL
     window.location.reload();
   }
 }
@@ -857,7 +858,7 @@ async function getMovie() {
           <p>Summary:  <span>${results.overview}</span></p>
           <p class='genre'>
           Genre(s): 
-            ${gen[0] ? `<span> ${gen[0].name}</span>` : ``}
+            ${gen[0] ? `<span> ${gen[0].name},</span>` : ``}
             ${gen[1] ? `<span> ${gen[1].name}</span>` : ``}
           </p>
           <p class='rating'>
@@ -952,7 +953,7 @@ async function getTVShow() {
           <p>Summary:  <span>${results.overview}</span></p>
           <p class='genre'>
           Genre(s): 
-            ${gen[0] ? `<span> ${gen[0].name}</span>` : ``}
+            ${gen[0] ? `<span> ${gen[0].name},</span>` : ``}
             ${gen[1] ? `<span> ${gen[1].name}</span>` : ``}
           </p>
           <p class='rating'>
@@ -1101,4 +1102,20 @@ function noRatingIfNotReleased(releaseDate, vote_average) {
   } else {
     return "0.0";
   }
+}
+
+// LOADER
+
+const loaderWrapper = document.querySelector("#loading");
+const loaderAnimation = document.querySelector(".loader");
+const body = document.querySelector("body");
+
+window.onload = (event) => {
+  setTimeout(fadeOut, 2000);
+};
+
+function fadeOut() {
+  body.style.overflowY = "scroll";
+  loaderWrapper.style.opacity = "0";
+  loaderWrapper.style.zIndex = "-9999";
 }
