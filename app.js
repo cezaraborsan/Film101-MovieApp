@@ -929,6 +929,7 @@ async function getTVShow() {
 
     const gen = results.genres.splice(0, 2);
     const releaseDate = results.first_air_date;
+    const epRunTime = results.episode_run_time;
 
     modalWindowContainer.innerHTML = "";
 
@@ -944,7 +945,9 @@ async function getTVShow() {
       <button class='close-modal' onclick='closeModalWindow()'> <img src='./imgs/close.svg' alt='close' /> </button>
       <p class='release'>
         <span> Release date: ${results.first_air_date} </span>
-        <span> ${results.episode_run_time} min </span>
+        <span> ${
+          results.episode_run_time > 0 ? `${results.episode_run_time} min` : ``
+        }</span>
       </p>
       <div class='movie-info'>
         <img src="${posterPath + results.poster_path}" alt="" />
