@@ -22,6 +22,8 @@ const documentaryBtn = document.querySelector(".documentary-button");
 const documentaryMovies = document.querySelector(".documentary-movies");
 const documentaryMoviesContainer = document.querySelector(".documentary");
 
+
+
 const topRatedMoviesList = document.querySelector(".top-rated-movies");
 const topRatedTVList = document.querySelector(".top-rated-tv-shows");
 const tvOnTheAir = document.querySelector(".tv-on-the-air");
